@@ -1,5 +1,9 @@
 import { GameActionTypes, Reducer } from '.';
-import { hunterThatDiedTonight } from '../../helpers/filterPlayers';
+import {
+  hunterDiedTonight,
+  playersDied,
+  playersExist,
+} from '../../helpers/filterPlayers';
 import { WEREWOLVES } from '../../roles/Werewolves';
 import { RoleIDs } from '../roles';
 import { GameState } from '../useGame';
@@ -23,58 +27,54 @@ export enum Phases {
 
 export type NextPhaseAction = {
   type: GameActionTypes.NextPhase;
-  phase?: Phases;
+  phaseIndex?: number;
 };
 
-const setPhase = (state: GameState, phase: Phases): GameState => {
-  return { ...state, previousPhase: state.currentPhase, currentPhase: phase };
+type PhaseInfo = {
+  id: Phases;
+  firstNightOnly: boolean;
 };
 
-const playersExist = (state: GameState, roles: RoleIDs[]): boolean => {
-  return state.players.some((player) => {
-    return (
-      roles.includes(player.role.id) &&
-      (player.causeOfDeath === null || player.diedTonight)
-    );
-  });
-};
+export const PHASE_ORDER: PhaseInfo[] = [
+  { id: Phases.NightTime, firstNightOnly: false },
+  { id: Phases.Cupid, firstNightOnly: true },
+  { id: Phases.FortuneTeller, firstNightOnly: false },
+  { id: Phases.Defender, firstNightOnly: false },
+  { id: Phases.Werewolves, firstNightOnly: false },
+  { id: Phases.BigBadWolf, firstNightOnly: false },
+  { id: Phases.Witch, firstNightOnly: false },
+  { id: Phases.NightSummary, firstNightOnly: false },
+  { id: Phases.Hunter, firstNightOnly: false },
+  { id: Phases.HunterSummary, firstNightOnly: false },
+  { id: Phases.Win, firstNightOnly: false },
+  { id: Phases.TownVote, firstNightOnly: false },
+  { id: Phases.TownSummary, firstNightOnly: false },
+  { id: Phases.Hunter, firstNightOnly: false },
+  { id: Phases.HunterSummary, firstNightOnly: false },
+  { id: Phases.Win, firstNightOnly: false },
+];
 
-const playersDied = (
+const setPhase = (
   state: GameState,
-  roles: RoleIDs[],
-  diedTonight: boolean,
-): boolean => {
-  return state.players.some((player) => {
-    return (
-      roles.includes(player.role.id) &&
-      player.causeOfDeath !== null &&
-      (diedTonight || !player.diedTonight)
-    );
-  });
-};
-
-const playersForPhase = (
-  state: GameState,
-  roles: RoleIDs[],
-  phase: Phases,
+  phaseIndex: GameState['phaseIndex'],
 ): GameState => {
-  if (playersExist(state, roles)) return setPhase(state, phase);
-
-  return nextPhase(state, { type: GameActionTypes.NextPhase, phase });
+  return { ...state, phaseIndex };
 };
 
-const isHunterPhaseNext = (state: GameState): boolean => {
-  if (
-    state.currentPhase === Phases.Hunter ||
-    state.currentPhase === Phases.HunterSummary
-  ) {
-    return false;
-  }
-  return hunterThatDiedTonight(state.players);
+const resetHunter = (state: GameState): GameState => {
+  return {
+    ...state,
+    players: state.players.map((player) => {
+      if (player.role.id === RoleIDs.Hunter) {
+        return { ...player, diedTonight: false, savedBy: null };
+      }
+      return player;
+    }),
+  };
 };
 
-const RESET_NIGHT = (state: GameState): GameState => {
-  const defenderDead = playersDied(state, [RoleIDs.Defender], true);
+const resetNight = (state: GameState): GameState => {
+  const defenderDead = playersDied(state.players, [RoleIDs.Defender], true);
   return {
     ...state,
     isFirstNight: false,
@@ -88,91 +88,88 @@ const RESET_NIGHT = (state: GameState): GameState => {
 };
 
 export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
-  const phase = action.phase || state.currentPhase;
+  const phaseIndex = action.phaseIndex ?? state.phaseIndex + 1;
 
-  let winner = null;
-  switch (phase) {
-    // Night Phases
-    case Phases.NightTime:
-      if (state.isFirstNight) {
-        return playersForPhase(
-          RESET_NIGHT(state),
-          [RoleIDs.Cupid],
-          Phases.Cupid,
-        );
-      }
-      return playersForPhase(
-        RESET_NIGHT(state),
-        [RoleIDs.FortuneTeller],
-        Phases.FortuneTeller,
-      );
-
-    case Phases.Cupid:
-      return playersForPhase(
-        state,
-        [RoleIDs.FortuneTeller],
-        Phases.FortuneTeller,
-      );
-
-    case Phases.FortuneTeller:
-      return playersForPhase(state, [RoleIDs.Defender], Phases.Defender);
-
-    case Phases.Defender:
-      return playersForPhase(state, WEREWOLVES, Phases.Werewolves);
-
-    case Phases.Werewolves:
-      // TODO: Add Wild Child and Wolf Hound once added
-      if (
-        !playersExist(state, [RoleIDs.BigBadWolf]) ||
-        playersDied(state, [RoleIDs.Werewolf], false)
-      ) {
-        return nextPhase(state, {
-          type: GameActionTypes.NextPhase,
-          phase: Phases.BigBadWolf,
-        });
-      }
-      return setPhase(state, Phases.BigBadWolf);
-
-    case Phases.BigBadWolf:
-      return playersForPhase(state, [RoleIDs.Witch], Phases.Witch);
-
-    case Phases.Witch:
-      return setPhase(state, Phases.NightSummary);
-
-    // Day Phases
-    case Phases.NightSummary:
-      if (isHunterPhaseNext(state)) return setPhase(state, Phases.Hunter);
-      winner = checkWinConditions(state.players);
-      if (winner) return setPhase({ ...state, winner }, Phases.Win);
-      return setPhase(state, Phases.TownVote);
-
-    case Phases.TownVote:
-      return setPhase(state, Phases.TownSummary);
-
-    case Phases.TownSummary:
-      if (isHunterPhaseNext(state)) return setPhase(state, Phases.Hunter);
-      winner = checkWinConditions(state.players);
-      if (winner) return setPhase({ ...state, winner }, Phases.Win);
-      return setPhase(state, Phases.NightTime);
-
-    // Out of Turn Phases
-    case Phases.Hunter:
-      return {
-        ...state,
-        currentPhase: Phases.HunterSummary,
-        players: state.players.map((player) => {
-          if (player.role.id === RoleIDs.Hunter) {
-            return { ...player, diedTonight: false, savedBy: null };
-          }
-          return player;
-        }),
-      };
-    case Phases.HunterSummary:
-      return nextPhase(state, {
-        type: GameActionTypes.NextPhase,
-        phase: state.previousPhase || undefined,
-      });
+  // If at the end of the phase list cycle back to the begining.
+  if (phaseIndex >= PHASE_ORDER.length) {
+    return nextPhase(state, { type: GameActionTypes.NextPhase, phaseIndex: 0 });
   }
 
-  return state;
+  const goToNextPhase = (jump: number = 1): GameState => {
+    return nextPhase(state, {
+      type: GameActionTypes.NextPhase,
+      phaseIndex: phaseIndex + jump,
+    });
+  };
+
+  const phaseInfo = PHASE_ORDER[phaseIndex];
+
+  if (phaseInfo.firstNightOnly && !state.isFirstNight) {
+    return goToNextPhase();
+  }
+
+  switch (phaseInfo.id) {
+    case Phases.NightTime:
+      return setPhase(resetNight(state), phaseIndex);
+
+    case Phases.Cupid:
+      if (!playersExist(state.players, [RoleIDs.Cupid])) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.FortuneTeller:
+      if (!playersExist(state.players, [RoleIDs.FortuneTeller])) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.Defender:
+      if (!playersExist(state.players, [RoleIDs.Defender])) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.Werewolves:
+      if (!playersExist(state.players, WEREWOLVES)) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.BigBadWolf:
+      if (
+        !playersExist(state.players, [RoleIDs.BigBadWolf]) ||
+        playersDied(state.players, [RoleIDs.Werewolf], false)
+      ) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.Witch:
+      if (!playersExist(state.players, [RoleIDs.Witch])) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.NightSummary:
+      return setPhase(state, phaseIndex);
+
+    case Phases.TownVote:
+      return setPhase(state, phaseIndex);
+
+    case Phases.TownSummary:
+      return setPhase(state, phaseIndex);
+
+    case Phases.Hunter:
+      if (!hunterDiedTonight(state.players)) return goToNextPhase(2);
+      return setPhase(state, phaseIndex);
+
+    case Phases.HunterSummary:
+      return setPhase(resetHunter(state), phaseIndex);
+
+    case Phases.Win:
+      const winner = checkWinConditions(state.players);
+      if (!winner) return goToNextPhase();
+      return setPhase({ ...state, winner }, phaseIndex);
+  }
 };

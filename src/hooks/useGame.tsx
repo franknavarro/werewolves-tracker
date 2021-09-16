@@ -3,7 +3,6 @@ import reducer, { GameActionTypes } from './gameReducer';
 import { PlayerSetUp } from './gameReducer/addPlayers';
 import { WinningRoles } from './gameReducer/checkWinConditions';
 import { retrieveFromLocalStorage } from './gameReducer/localStorage';
-import { Phases } from './gameReducer/nextPhase';
 import { Role, RoleIDs } from './roles';
 
 export type PlayerID = number;
@@ -31,8 +30,7 @@ export interface GameState {
   players: Player[];
   roles: Role[];
   isFirstNight: boolean;
-  currentPhase: Phases | null;
-  previousPhase: Phases | null;
+  phaseIndex: number;
   witchPotions: WitchPotions;
   winner: WinningRoles | null;
 }
@@ -41,8 +39,7 @@ export const DEFAULT_GAME_STATE = (): GameState => ({
   players: [],
   roles: [],
   isFirstNight: true,
-  currentPhase: null,
-  previousPhase: null,
+  phaseIndex: 0,
   witchPotions: {
     [WitchPotionTypes.Life]: false,
     [WitchPotionTypes.Death]: false,

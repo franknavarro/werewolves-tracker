@@ -53,7 +53,7 @@ export const savedTonight = (players: Player[]) => {
   return players.filter((player) => player.savedBy);
 };
 
-export const hunterThatDiedTonight = (players: Player[]): boolean => {
+export const hunterDiedTonight = (players: Player[]): boolean => {
   return players.some((player) => {
     return player.role.id === RoleIDs.Hunter && player.diedTonight;
   });
@@ -86,4 +86,27 @@ export const undefendablePlayers = (players: Player[]): PlayerID[] => {
   return players
     .filter((p) => p.defended || p.role.id === RoleIDs.LittleGirl)
     .map((p) => p.id);
+};
+
+export const playersExist = (players: Player[], roles: RoleIDs[]): boolean => {
+  return players.some((player) => {
+    return (
+      roles.includes(player.role.id) &&
+      (player.causeOfDeath === null || player.diedTonight)
+    );
+  });
+};
+
+export const playersDied = (
+  players: Player[],
+  roles: RoleIDs[],
+  diedTonight: boolean,
+): boolean => {
+  return players.some((player) => {
+    return (
+      roles.includes(player.role.id) &&
+      player.causeOfDeath !== null &&
+      (diedTonight || !player.diedTonight)
+    );
+  });
 };

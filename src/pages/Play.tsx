@@ -17,20 +17,22 @@ import NightSummary from '../roles/NightSummary';
 import Hunter from '../roles/Hunter';
 import TownVote from '../roles/TownVote';
 import Win from '../roles/Win';
-import { Phases } from '../hooks/gameReducer/nextPhase';
+import { Phases, PHASE_ORDER } from '../hooks/gameReducer/nextPhase';
 import Defender from '../roles/Defender';
 import BigBadWolf from '../roles/BigBadWolf';
 
 const Play: FC = () => {
   const state = useGame();
-  const { players, roles, winner, currentPhase } = state;
+  const { players, roles, winner, phaseIndex } = state;
 
   useEffect(() => {
     window.scroll({
       top: 0,
       behavior: 'smooth',
     });
-  }, [players, roles, winner, currentPhase]);
+  }, [players, roles, winner, phaseIndex]);
+
+  const currentPhase = PHASE_ORDER[phaseIndex].id;
 
   if (!roles.length) {
     return <PickRoles />;
