@@ -1,18 +1,8 @@
-import {
-  AppBar,
-  Dialog,
-  IconButton,
-  makeStyles,
-  Slide,
-  Theme,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import { TransitionProps } from '@material-ui/core/transitions';
-import { Close } from '@material-ui/icons';
-import { FC, forwardRef, ReactElement, Ref } from 'react';
+import { makeStyles, Theme, Typography } from '@material-ui/core';
+import { FC } from 'react';
 import { Player } from '../hooks/useGame';
 import { getRoleText } from '../text';
+import PlayerModal from './PlayerModal';
 import RoleSvg from './RoleSvg';
 
 interface PlayerInfoProps {
@@ -46,28 +36,6 @@ const useStyles = makeStyles<Theme, Pick<PlayerInfoProps, 'player'>>(
         objectFit: 'contain',
       },
     },
-    title: {
-      marginLeft: theme.spacing(2),
-      flex: 1,
-    },
-    appBar: {
-      backgroundColor: ({ player }) => theme[player.role.id].main,
-      color: ({ player }) => theme[player.role.id].contrastText,
-      position: 'relative',
-    },
-    content: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-      backgroundColor: ({ player }) => theme[player.role.id].main,
-      color: ({ player }) => theme[player.role.id].contrastText,
-      '& > *:not(:first-child)': {
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-      },
-    },
     startText: {
       paddingBottom: '0 !important',
     },
@@ -76,13 +44,6 @@ const useStyles = makeStyles<Theme, Pick<PlayerInfoProps, 'player'>>(
     },
   }),
 );
-
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & { children?: ReactElement },
-  ref: Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const PlayerInfo: FC<PlayerInfoProps> = ({ player, onClose, open }) => {
   const classes = useStyles({ player });
@@ -103,34 +64,22 @@ const PlayerInfo: FC<PlayerInfoProps> = ({ player, onClose, open }) => {
   };
 
   return (
-    <Dialog fullScreen open={open} TransitionComponent={Transition}>
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={onClose}
-            aria-label="close"
-          >
-            <Close />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            {player.name}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.content}>
-        <div className={classes.roleCardRoot}>
-          <div className={classes.roleCardContainer}>
-            <RoleSvg role={player.role.id} />
-          </div>
+    <PlayerModal
+      open={open}
+      onClose={onClose}
+      themeID={player.role.id}
+      appBarText={player.name}
+    >
+      <div className={classes.roleCardRoot}>
+        <div className={classes.roleCardContainer}>
+          <RoleSvg role={player.role.id} />
         </div>
-        <Typography variant="h6">
-          {getRoleText(player.role.id).displayName}
-        </Typography>
-        {showDeath()}
       </div>
-    </Dialog>
+      <Typography variant="h6">
+        {getRoleText(player.role.id).displayName}
+      </Typography>
+      {showDeath()}
+    </PlayerModal>
   );
 };
 
