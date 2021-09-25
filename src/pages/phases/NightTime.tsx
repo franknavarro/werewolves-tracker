@@ -1,7 +1,7 @@
 import { Button, Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import { useGame } from '../../hooks/useGame';
 
 const NightTime: FC = () => {
   const { nextPhase } = useGame();

@@ -4,7 +4,7 @@ import {
   playersDied,
   playersExist,
 } from '../../helpers/filterPlayers';
-import { WEREWOLVES } from '../../roles/Werewolves';
+import { WEREWOLVES } from '../../pages/phases/Werewolves';
 import { RoleIDs } from '../roles';
 import { GameState } from '../useGame';
 import { checkWinConditions } from './checkWinConditions';

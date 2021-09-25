@@ -1,14 +1,14 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList, { PlayerListProps } from '../components/PlayerList';
+import PageColor from '../../components/PageColor';
+import PlayerList, { PlayerListProps } from '../../components/PlayerList';
 import {
   aliveAndNotRoles,
   aliveAndIsRoles,
   selectedPlayers,
-} from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+} from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 // TODO: Add any werewolves that wake up with normal werewolves here.
 export const WEREWOLVES = [RoleIDs.Werewolf, RoleIDs.BigBadWolf];

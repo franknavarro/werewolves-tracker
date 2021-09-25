@@ -1,9 +1,9 @@
 import { Button, List, makeStyles, Typography } from '@material-ui/core';
 import { FC, SyntheticEvent, useCallback, useEffect, useState } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerNameCards from '../components/PlayerNameCards';
-import { PlayerSetUp } from '../hooks/gameReducer/addPlayers';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import PlayerNameCards from '../../components/PlayerNameCards';
+import { PlayerSetUp } from '../../hooks/gameReducer/addPlayers';
+import { useGame } from '../../hooks/useGame';
 
 const MAX_CHARS_FOR_PLAYER_NAME = 20;
 

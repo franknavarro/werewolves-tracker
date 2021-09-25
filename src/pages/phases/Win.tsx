@@ -1,11 +1,11 @@
 import { Button, Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList from '../components/PlayerList';
-import { alive, dead } from '../helpers/filterPlayers';
-import { WinningRoles } from '../hooks/gameReducer/checkWinConditions';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import PlayerList from '../../components/PlayerList';
+import { alive, dead } from '../../helpers/filterPlayers';
+import { WinningRoles } from '../../hooks/gameReducer/checkWinConditions';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 interface WinProps {
   winner: WinningRoles;

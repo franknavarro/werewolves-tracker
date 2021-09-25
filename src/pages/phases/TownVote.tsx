@@ -1,10 +1,10 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList, { PlayerListProps } from '../components/PlayerList';
-import { alive } from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import PlayerList, { PlayerListProps } from '../../components/PlayerList';
+import { alive } from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 const TownVote: FC = () => {
   const { killPlayers, players, nextPhase } = useGame();

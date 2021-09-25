@@ -1,9 +1,9 @@
 import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import PageColor from '../components/PageColor';
-import { Classifications, Role, roleCards } from '../hooks/roles';
-import RoleCard from '../components/RoleCard';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import { Classifications, Role, roleCards } from '../../hooks/roles';
+import RoleCard from '../../components/RoleCard';
+import { useGame } from '../../hooks/useGame';
 import { Alert } from '@material-ui/lab';
 
 const MIN_PLAYERS = 7;

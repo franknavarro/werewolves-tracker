@@ -1,5 +1,5 @@
 import { GameActionTypes, Reducer } from '.';
-import { WEREWOLVES } from '../../roles/Werewolves';
+import { WEREWOLVES } from '../../pages/phases/Werewolves';
 import { RoleIDs } from '../roles';
 import { Player, PlayerID } from '../useGame';
 import { savePlayer } from './savePlayers';

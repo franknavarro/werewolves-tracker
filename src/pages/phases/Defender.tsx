@@ -1,14 +1,14 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList, { PlayerListProps } from '../components/PlayerList';
+import PageColor from '../../components/PageColor';
+import PlayerList, { PlayerListProps } from '../../components/PlayerList';
 import {
   alive,
   selectedPlayers,
   undefendablePlayers,
-} from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+} from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 const Defender: FC = () => {
   const { players, nextPhase, defendPlayer } = useGame();

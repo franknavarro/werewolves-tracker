@@ -1,25 +1,25 @@
 import { FC, useEffect } from 'react';
 import { useGame } from '../hooks/useGame';
-import AddPlayers from './AddPlayers';
-import PickRoles from './PickRoles';
+import AddPlayers from './phases/AddPlayers';
+import PickRoles from './phases/PickRoles';
 import {
   diedTonight,
   savedTonight,
   diedTonightAtTheHandsOf,
 } from '../helpers/filterPlayers';
 import { RoleIDs } from '../hooks/roles';
-import NightTime from '../roles/NightTime';
-import Cupid from '../roles/Cupid';
-import FortuneTeller from '../roles/FortuneTeller';
-import Werewolves from '../roles/Werewolves';
-import Witch from '../roles/Witch';
-import NightSummary from '../roles/NightSummary';
-import Hunter from '../roles/Hunter';
-import TownVote from '../roles/TownVote';
-import Win from '../roles/Win';
+import NightTime from './phases/NightTime';
+import Cupid from './phases/Cupid';
+import FortuneTeller from './phases/FortuneTeller';
+import Werewolves from './phases/Werewolves';
+import Witch from './phases/Witch';
+import NightSummary from './phases/NightSummary';
+import Hunter from './phases/Hunter';
+import TownVote from './phases/TownVote';
+import Win from './phases/Win';
 import { Phases, PHASE_ORDER } from '../hooks/gameReducer/nextPhase';
-import Defender from '../roles/Defender';
-import BigBadWolf from '../roles/BigBadWolf';
+import Defender from './phases/Defender';
+import BigBadWolf from './phases/BigBadWolf';
 
 const Play: FC = () => {
   const state = useGame();

@@ -1,14 +1,14 @@
 import { Typography } from '@material-ui/core';
 import { FC, useState } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList, { PlayerListProps } from '../components/PlayerList';
+import PageColor from '../../components/PageColor';
+import PlayerList, { PlayerListProps } from '../../components/PlayerList';
 import {
   aliveAndNotRoles,
   selectedPlayers,
   tonightsWerewolfVictim,
-} from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame, WitchPotionTypes } from '../hooks/useGame';
+} from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame, WitchPotionTypes } from '../../hooks/useGame';
 
 const Witch: FC = () => {
   const { nextPhase, players, witchUsedPotion, witchPotions } = useGame();

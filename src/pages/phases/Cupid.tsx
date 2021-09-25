@@ -1,10 +1,10 @@
 import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList, { PlayerListProps } from '../components/PlayerList';
-import { selectedPlayers } from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import PlayerList, { PlayerListProps } from '../../components/PlayerList';
+import { selectedPlayers } from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 const Cupid: FC = () => {
   const { players, marryPlayers, nextPhase } = useGame();

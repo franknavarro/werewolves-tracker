@@ -1,10 +1,10 @@
 import { Button, Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../components/PageColor';
-import PlayerList from '../components/PlayerList';
-import { aliveAndNotRoles } from '../helpers/filterPlayers';
-import { RoleIDs } from '../hooks/roles';
-import { useGame } from '../hooks/useGame';
+import PageColor from '../../components/PageColor';
+import PlayerList from '../../components/PlayerList';
+import { aliveAndNotRoles } from '../../helpers/filterPlayers';
+import { RoleIDs } from '../../hooks/roles';
+import { useGame } from '../../hooks/useGame';
 
 const FortuneTeller: FC = () => {
   const { players, nextPhase } = useGame();
