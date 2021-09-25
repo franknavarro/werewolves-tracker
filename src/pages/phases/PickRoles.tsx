@@ -33,53 +33,56 @@ const PickRoles: FC = () => {
     });
   }, []);
 
-  const playWithSelectedRoles = () => {
-    setDisabled(true);
+  const playWithSelectedRoles = useCallback(
+    (selectedIndexes: number[]) => {
+      setDisabled(true);
 
-    if (selected.length < MIN_PLAYERS) {
-      setError(`At least ${MIN_PLAYERS} players are required to play.`);
-      setDisabled(false);
-      return;
-    }
+      if (selectedIndexes.length < MIN_PLAYERS) {
+        setError(`At least ${MIN_PLAYERS} players are required to play.`);
+        setDisabled(false);
+        return;
+      }
 
-    const selectedRoles = roleCards.filter((_, index) =>
-      selected.includes(index),
-    );
+      const selectedRoles = roleCards.filter((_, index) =>
+        selectedIndexes.includes(index),
+      );
 
-    const roleAmounts = selectedRoles.reduce(
-      (amounts, role) => {
-        const newAmounts = { ...amounts };
-        newAmounts[role.classification]++;
-        return newAmounts;
-      },
-      {
-        [Classifications.Villager]: 0,
-        [Classifications.Werewolf]: 0,
-      },
-    );
+      const roleAmounts = selectedRoles.reduce(
+        (amounts, role) => {
+          const newAmounts = { ...amounts };
+          newAmounts[role.classification]++;
+          return newAmounts;
+        },
+        {
+          [Classifications.Villager]: 0,
+          [Classifications.Werewolf]: 0,
+        },
+      );
 
-    if (roleAmounts[Classifications.Villager] <= 0) {
-      setError('You need at least 1 villager role to play.');
-      setDisabled(false);
-      return;
-    }
-    if (roleAmounts[Classifications.Werewolf] <= 0) {
-      setError('You need at least 1 werewolf role to play.');
-      setDisabled(false);
-      return;
-    }
+      if (roleAmounts[Classifications.Villager] <= 0) {
+        setError('You need at least 1 villager role to play.');
+        setDisabled(false);
+        return;
+      }
+      if (roleAmounts[Classifications.Werewolf] <= 0) {
+        setError('You need at least 1 werewolf role to play.');
+        setDisabled(false);
+        return;
+      }
 
-    const finalRoles = selectedRoles.reduce<Role[]>((prevRoles, role) => {
-      const newRole = { ...role };
-      const roleExists = prevRoles.findIndex((r) => r.id === newRole.id);
-      if (roleExists === -1) return [...prevRoles, newRole];
+      const finalRoles = selectedRoles.reduce<Role[]>((prevRoles, role) => {
+        const newRole = { ...role };
+        const roleExists = prevRoles.findIndex((r) => r.id === newRole.id);
+        if (roleExists === -1) return [...prevRoles, newRole];
 
-      prevRoles[roleExists].amount++;
-      return prevRoles;
-    }, []);
+        prevRoles[roleExists].amount++;
+        return prevRoles;
+      }, []);
 
-    addRoles(finalRoles);
-  };
+      addRoles(finalRoles);
+    },
+    [addRoles],
+  );
 
   return (
     <PageColor color="primary">
@@ -101,7 +104,7 @@ const PickRoles: FC = () => {
         color="secondary"
         variant="contained"
         disabled={disabled}
-        onClick={playWithSelectedRoles}
+        onClick={() => playWithSelectedRoles(selected)}
       >
         Next
       </Button>
