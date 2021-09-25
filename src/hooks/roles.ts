@@ -86,3 +86,9 @@ export const roleCards = Object.entries(ROLES)
     return Array(amount).fill(newRole);
   })
   .flat(1);
+
+export const rolesList = Object.entries(ROLES).map<Role>(
+  ([id, { amountChangable, ...role }]) => {
+    return { ...role, id: id as RoleIDs };
+  },
+);

@@ -40,6 +40,15 @@ const Home: FC = () => {
           Resume Game
         </Button>
       )}
+      <Button
+        component={Link}
+        to="/roles"
+        color="secondary"
+        variant="contained"
+        fullWidth
+      >
+        Role Descriptions
+      </Button>
     </PageColor>
   );
 };
