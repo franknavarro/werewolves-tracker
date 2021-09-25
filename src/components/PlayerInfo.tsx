@@ -1,4 +1,4 @@
-import { makeStyles, Theme, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { FC } from 'react';
 import { Player } from '../hooks/useGame';
 import { getRoleText } from '../text';
@@ -11,42 +11,40 @@ interface PlayerInfoProps {
   onClose: () => void;
 }
 
-const useStyles = makeStyles<Theme, Pick<PlayerInfoProps, 'player'>>(
-  (theme) => ({
-    roleCardRoot: {
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'relative',
-      width: '90%',
-      padding: 0,
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+const useStyles = makeStyles((theme) => ({
+  roleCardRoot: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    width: '90%',
+    padding: 0,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  roleCardContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    '& > img': {
+      width: '100%',
+      height: '100%',
+      objectFit: 'contain',
     },
-    roleCardContainer: {
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      '& > img': {
-        width: '100%',
-        height: '100%',
-        objectFit: 'contain',
-      },
-    },
-    startText: {
-      paddingBottom: '0 !important',
-    },
-    endText: {
-      paddingTop: '0 !important',
-    },
-  }),
-);
+  },
+  startText: {
+    paddingBottom: '0 !important',
+  },
+  endText: {
+    paddingTop: '0 !important',
+  },
+}));
 
 const PlayerInfo: FC<PlayerInfoProps> = ({ player, onClose, open }) => {
-  const classes = useStyles({ player });
+  const classes = useStyles();
 
   const showDeath = () => {
     if (player.causeOfDeath !== null) {
