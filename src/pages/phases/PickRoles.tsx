@@ -1,22 +1,14 @@
-import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import PageColor from '../../components/PageColor';
 import { Classifications, Role, roleCards } from '../../hooks/roles';
-import RoleCard from '../../components/RoleCard';
 import { useGame } from '../../hooks/useGame';
 import { Alert } from '@material-ui/lab';
+import RoleGrid from '../../components/RoleGrid';
 
 const MIN_PLAYERS = 7;
 
-const useStyles = makeStyles({
-  roleGrid: {
-    margin: 0,
-    width: 'auto',
-  },
-});
-
 const PickRoles: FC = () => {
-  const classes = useStyles();
   const [selected, setSelected] = useState<number[]>([]);
   const { addRoles } = useGame();
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -99,17 +91,12 @@ const PickRoles: FC = () => {
           {error}
         </Alert>
       )}
-      <Grid container spacing={2} className={classes.roleGrid}>
-        {roleCards.map((role, index) => (
-          <RoleCard
-            key={index}
-            role={role}
-            selected={selected.includes(index)}
-            disabled={disabled}
-            onClick={() => !disabled && addSelected(index)}
-          />
-        ))}
-      </Grid>
+      <RoleGrid
+        roles={roleCards}
+        isSelected={(index) => selected.includes(index)}
+        disabled={disabled}
+        onClick={(index) => !disabled && addSelected(index)}
+      />
       <Button
         color="secondary"
         variant="contained"
