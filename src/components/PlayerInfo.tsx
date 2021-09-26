@@ -12,29 +12,6 @@ interface PlayerInfoProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  roleCardRoot: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    width: '90%',
-    padding: 0,
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  roleCardContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    '& > img': {
-      width: '100%',
-      height: '100%',
-      objectFit: 'contain',
-    },
-  },
   startText: {
     paddingBottom: '0 !important',
   },
@@ -67,15 +44,8 @@ const PlayerInfo: FC<PlayerInfoProps> = ({ player, onClose, open }) => {
       onClose={onClose}
       themeID={player.role.id}
       appBarText={player.name}
+      header={getRoleText(player.role.id).displayName}
     >
-      <div className={classes.roleCardRoot}>
-        <div className={classes.roleCardContainer}>
-          <RoleSvg role={player.role.id} />
-        </div>
-      </div>
-      <Typography variant="h6">
-        {getRoleText(player.role.id).displayName}
-      </Typography>
       {showDeath()}
     </PlayerModal>
   );
