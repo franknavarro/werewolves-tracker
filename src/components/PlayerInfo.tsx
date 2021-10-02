@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { Player } from '../hooks/useGame';
 import { getRoleText } from '../text';
 import PlayerModal from './PlayerModal';
-import RoleSvg from './RoleSvg';
 
 interface PlayerInfoProps {
   player: Player;
