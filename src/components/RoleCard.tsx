@@ -29,6 +29,7 @@ const useStyles = makeStyles<Theme, Pick<RoleCardProps, 'role'>>((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     transitionProperty: 'all',
+    borderRadius: '20px',
     cursor: 'pointer',
     boxShadow: baseBoxSadow,
     backgroundColor: ({ role }) => theme[role.id].main,
@@ -50,6 +51,7 @@ const useStyles = makeStyles<Theme, Pick<RoleCardProps, 'role'>>((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: '20px',
     transition: 'all 300ms ease-out',
   },
 }));
