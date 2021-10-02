@@ -10,6 +10,32 @@ export enum RoleIDs {
   BigBadWolf = 'big-bad-wolf',
 }
 
+export enum FutureRoleIDs {
+  AccursedWolfFather = 'accursed-wolf-father',
+  WhiteWerewolf = 'white-werewolf',
+  Elder = 'elder',
+  Scapegoat = 'scapegoat',
+  VillageIdoit = 'village-idiot',
+  TwoSisters = 'two-sisters',
+  ThreeBrothers = 'three-brothers',
+  Fox = 'fox',
+  BearTamer = 'bear-tamer',
+  StutteringJudge = 'stuttering-judge',
+  KnightRustySword = 'knight-with-the-rusty-sword',
+  Thief = 'theif',
+  DevotedServant = 'devoted-servant',
+  Actor = 'actor',
+  WildChild = 'wild-child',
+  Wolfhound = 'wolf-hound',
+  Angel = 'angel',
+  Piper = 'piper',
+  PrejudicedManipulator = 'prejudiced-manipulator',
+  Pyromaniac = 'pyromaniac',
+  Scandalmonger = 'scandalmonger',
+  TownCrier = 'TownCrier',
+  Gypsy = 'gypsy',
+}
+
 export enum Classifications {
   Werewolf = 'werewolf',
   Villager = 'villager',
