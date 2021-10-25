@@ -85,12 +85,6 @@ export const selectedPlayers = (
   return allPlayers.filter((p) => p.selected).map((p) => p.id);
 };
 
-export const undefendablePlayers = (players: Player[]): PlayerID[] => {
-  return players
-    .filter((p) => p.defended || p.role.id === RoleIDs.LittleGirl)
-    .map((p) => p.id);
-};
-
 export const playersExist = (
   players: Player[],
   roles: AllRoleIDs[],
