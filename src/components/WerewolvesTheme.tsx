@@ -1,29 +1,20 @@
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { FC } from 'react';
-import { RoleIDs } from '../hooks/roles';
+import { FutureRoleIDs, RoleIDs, RoleIDsWithType } from '../hooks/roles';
 
-export type RoleColors = {
-  [key in RoleIDs]: {
-    main: string;
-    light: string;
-    dark: string;
-    contrastText: string;
-  };
+type ColorOptions = {
+  main: string;
+  light: string;
+  dark: string;
+  contrastText: string;
 };
 
-type RoleColorsOptions = {
-  [key in RoleIDs]: {
-    main: string;
-    light: string;
-    dark: string;
-    contrastText: string;
-  };
-};
+export type RoleColors = RoleIDsWithType<ColorOptions>;
 
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme extends RoleColors {}
   // allow configuration using `createTheme`
-  interface ThemeOptions extends RoleColorsOptions {}
+  interface ThemeOptions extends RoleColors {}
 }
 
 const theme = createTheme({
@@ -93,6 +84,138 @@ const theme = createTheme({
     main: '#ebc16d',
     light: '#fff49d',
     dark: '#b6913f',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.AccursedWolfFather]: {
+    main: '#9e4c36',
+    light: '#d37a60',
+    dark: '#6b200f',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.WhiteWerewolf]: {
+    main: '#935050',
+    light: '#c67d7c',
+    dark: '#622528',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Elder]: {
+    main: '#2bae5c',
+    light: '#66e18a',
+    dark: '#007d30',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.Scapegoat]: {
+    main: '#d0384a',
+    light: '#ff6c76',
+    dark: '#980023',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.VillageIdiot]: {
+    main: '#f9ea25',
+    light: '#ffff63',
+    dark: '#c2b800',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.TwoSisters]: {
+    main: '#e0c64d',
+    light: '#fff97e',
+    dark: '#ab9617',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.ThreeBrothers]: {
+    main: '#e4c240',
+    light: '#fff472',
+    dark: '#ae9200',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.Fox]: {
+    main: '#474e63',
+    light: '#737a91',
+    dark: '#1e2639',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.BearTamer]: {
+    main: '#b56a41',
+    light: '#ea996d',
+    dark: '#813e18',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.StutteringJudge]: {
+    main: '#8ad2b7',
+    light: '#bcffe9',
+    dark: '#5aa187',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.KnightRustySword]: {
+    main: '#ab5731',
+    light: '#e1855c',
+    dark: '#772b07',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Thief]: {
+    main: '#a8dabb',
+    light: '#daffed',
+    dark: '#78a88b',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.DevotedServant]: {
+    main: '#bb3889',
+    light: '#f06bb9',
+    dark: '#87005c',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Actor]: {
+    main: '#926892',
+    light: '#c396c2',
+    dark: '#643d64',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.WildChild]: {
+    main: '#995237',
+    light: '#cd7f62',
+    dark: '#672710',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Wolfhound]: {
+    main: '#9f5039',
+    light: '#d47e64',
+    dark: '#6c2512',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Angel]: {
+    main: '#588db8',
+    light: '#8abdea',
+    dark: '#236088',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.Piper]: {
+    main: '#df4f9e',
+    light: '#ff82cf',
+    dark: '#aa0f70',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.PrejudicedManipulator]: {
+    main: '#e7de9a',
+    light: '#ffffcb',
+    dark: '#b4ac6b',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.Pyromaniac]: {
+    main: '#9a3b28',
+    light: '#d06951',
+    dark: '#660900',
+    contrastText: '#ffffff',
+  },
+  [FutureRoleIDs.Scandalmonger]: {
+    main: '#d9cc9f',
+    light: '#ffffd0',
+    dark: '#a79b70',
+    contrastText: '#000000',
+  },
+  [FutureRoleIDs.Gypsy]: {
+    main: '#90acc5',
+    light: '#c1def8',
+    dark: '#617d94',
     contrastText: '#000000',
   },
 });

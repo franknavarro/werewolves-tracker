@@ -12,10 +12,10 @@ import {
 import { TransitionProps } from '@material-ui/core/transitions';
 import { Close } from '@material-ui/icons';
 import { FC, forwardRef, ReactElement, Ref } from 'react';
-import { RoleIDs } from '../hooks/roles';
+import { AllRoleIDs } from '../hooks/roles';
 import RoleSvg from './RoleSvg';
 
-const useStyles = makeStyles<Theme, { themeID: RoleIDs }>((theme) => ({
+const useStyles = makeStyles<Theme, { themeID: AllRoleIDs }>((theme) => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
@@ -83,7 +83,7 @@ interface PlayerModalProps {
   header?: string;
   open: boolean;
   onClose: () => void;
-  themeID: RoleIDs;
+  themeID: AllRoleIDs;
 }
 
 const PlayerModal: FC<PlayerModalProps> = ({

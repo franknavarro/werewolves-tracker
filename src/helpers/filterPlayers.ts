@@ -1,4 +1,4 @@
-import { RoleIDs } from '../hooks/roles';
+import { AllRoleIDs, RoleIDs } from '../hooks/roles';
 import { InteractablePlayer } from '../hooks/useInteractablePlayers';
 import { Player, PlayerID } from '../hooks/useGame';
 
@@ -10,7 +10,7 @@ export const alive = (players: Player[]) => {
 
 export const aliveAndIsRoles = (
   players: Player[],
-  roles: RoleIDs[],
+  roles: AllRoleIDs[],
 ): Player[] => {
   return players.filter((player) => {
     return (
@@ -22,7 +22,7 @@ export const aliveAndIsRoles = (
 
 export const aliveAndNotRoles = (
   players: Player[],
-  roles: RoleIDs[],
+  roles: AllRoleIDs[],
 ): Player[] => {
   return players.filter((player) => {
     return (
@@ -59,7 +59,10 @@ export const hunterDiedTonight = (players: Player[]): boolean => {
   });
 };
 
-export const diedTonightAtTheHandsOf = (players: Player[], role: RoleIDs) => {
+export const diedTonightAtTheHandsOf = (
+  players: Player[],
+  role: AllRoleIDs,
+) => {
   const diedAtTheHandsOf = (player: Player) => {
     return player.causeOfDeath === role && player.diedTonight;
   };
@@ -88,7 +91,10 @@ export const undefendablePlayers = (players: Player[]): PlayerID[] => {
     .map((p) => p.id);
 };
 
-export const playersExist = (players: Player[], roles: RoleIDs[]): boolean => {
+export const playersExist = (
+  players: Player[],
+  roles: AllRoleIDs[],
+): boolean => {
   return players.some((player) => {
     return (
       roles.includes(player.role.id) &&
@@ -99,7 +105,7 @@ export const playersExist = (players: Player[], roles: RoleIDs[]): boolean => {
 
 export const playersDied = (
   players: Player[],
-  roles: RoleIDs[],
+  roles: AllRoleIDs[],
   diedTonight: boolean,
 ): boolean => {
   return players.some((player) => {

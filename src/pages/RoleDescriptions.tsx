@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import PageColor from '../components/PageColor';
 import RoleGrid from '../components/RoleGrid';
 import RoleInfo from '../components/RoleInfo';
-import { rolesList } from '../hooks/roles';
+import { Role } from '../hooks/roles';
 
-const RoleDescriptions: FC = () => {
+interface RoleDescriptionsProps {
+  roles: Role[];
+}
+
+const RoleDescriptions: FC<RoleDescriptionsProps> = ({ roles }) => {
   const [roleSelected, setRoleSelected] = useState<number>(0);
   const [descriptionOpen, setDescriptionOpen] = useState<boolean>(false);
 
@@ -22,7 +26,7 @@ const RoleDescriptions: FC = () => {
           Pick a role to view it's description.
         </Typography>
         <RoleGrid
-          roles={rolesList}
+          roles={roles}
           onClick={onRoleClick}
           disabled={descriptionOpen}
         />
@@ -31,7 +35,7 @@ const RoleDescriptions: FC = () => {
         </Button>
       </PageColor>
       <RoleInfo
-        role={rolesList[roleSelected]}
+        role={roles[roleSelected]}
         open={descriptionOpen}
         onClose={() => setDescriptionOpen(false)}
       />

@@ -15,7 +15,7 @@ export enum FutureRoleIDs {
   WhiteWerewolf = 'white-werewolf',
   Elder = 'elder',
   Scapegoat = 'scapegoat',
-  VillageIdoit = 'village-idiot',
+  VillageIdiot = 'village-idiot',
   TwoSisters = 'two-sisters',
   ThreeBrothers = 'three-brothers',
   Fox = 'fox',
@@ -32,9 +32,14 @@ export enum FutureRoleIDs {
   PrejudicedManipulator = 'prejudiced-manipulator',
   Pyromaniac = 'pyromaniac',
   Scandalmonger = 'scandalmonger',
-  TownCrier = 'TownCrier',
   Gypsy = 'gypsy',
 }
+
+export type AllRoleIDs = RoleIDs | FutureRoleIDs;
+
+export type RoleIDsWithType<T> = {
+  [key in AllRoleIDs]: T;
+};
 
 export enum Classifications {
   Werewolf = 'werewolf',
@@ -42,7 +47,7 @@ export enum Classifications {
 }
 
 export interface Role {
-  id: RoleIDs;
+  id: RoleIDs | FutureRoleIDs;
   classification: Classifications;
   amount: number;
 }
@@ -102,6 +107,122 @@ export const ROLES: Roles = {
   },
 };
 
+type FutureRoles = {
+  [key in FutureRoleIDs]: ChangeableRole;
+};
+export const FUTURE_ROLES: FutureRoles = {
+  [FutureRoleIDs.AccursedWolfFather]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.WhiteWerewolf]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Elder]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Scapegoat]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.VillageIdiot]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.TwoSisters]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.ThreeBrothers]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Fox]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.BearTamer]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.StutteringJudge]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.KnightRustySword]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Thief]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.DevotedServant]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Actor]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.WildChild]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Wolfhound]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Angel]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Piper]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.PrejudicedManipulator]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Pyromaniac]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Scandalmonger]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [FutureRoleIDs.Gypsy]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+};
+
 export const roleCards = Object.entries(ROLES)
   .map<Role[]>(([id, { amountChangable, ...role }]) => {
     const newRole: Role = { ...role, id: id as RoleIDs };
@@ -113,8 +234,7 @@ export const roleCards = Object.entries(ROLES)
   })
   .flat(1);
 
-export const rolesList = Object.entries(ROLES).map<Role>(
-  ([id, { amountChangable, ...role }]) => {
+export const rolesAsList = (roles: Roles | FutureRoles) =>
+  Object.entries(roles).map<Role>(([id, { amountChangable, ...role }]) => {
     return { ...role, id: id as RoleIDs };
-  },
-);
+  });
