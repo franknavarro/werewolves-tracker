@@ -2,7 +2,11 @@ import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import PageColor from '../../components/PageColor';
 import PlayerList, { PlayerListProps } from '../../components/PlayerList';
-import { alive, selectedPlayers } from '../../helpers/filterPlayers';
+import {
+  alive,
+  selectedPlayers,
+  undefendablePlayers,
+} from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
 
@@ -24,6 +28,7 @@ const Defender: FC = () => {
       </Typography>
       <PlayerList
         players={alive(players)}
+        disabledPlayers={undefendablePlayers(players)}
         selectable
         minSelectable={1}
         maxSelectable={1}

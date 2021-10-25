@@ -20,7 +20,11 @@ export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
   let playersWithDeath = state.players.map((player) => {
     if (action.playerIDs.includes(player.id)) {
       // Save player from werewolves if defended
-      if (player.defended && WEREWOLVES.includes(action.cause)) {
+      if (
+        player.defended &&
+        player.role.id !== RoleIDs.LittleGirl &&
+        WEREWOLVES.includes(action.cause)
+      ) {
         return savePlayer(player, RoleIDs.Defender);
       }
 
