@@ -32,6 +32,14 @@ export const aliveAndNotRoles = (
   });
 };
 
+export const aliveAndCharmed = (players: Player[]): Player[] => {
+  return players.filter((player) => {
+    return (
+      player.charmed && (player.causeOfDeath === null || player.diedTonight)
+    );
+  });
+};
+
 export const tonightsWerewolfVictim = (players: Player[]): Player[] => {
   return players.filter((player) => {
     return (
@@ -87,6 +95,10 @@ export const selectedPlayers = (
 
 export const undefendablePlayers = (players: Player[]): PlayerID[] => {
   return players.filter((p) => p.defended).map((p) => p.id);
+};
+
+export const charmedPlayers = (players: Player[]): PlayerID[] => {
+  return aliveAndCharmed(players).map((p) => p.id);
 };
 
 export const playersExist = (

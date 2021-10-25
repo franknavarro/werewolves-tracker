@@ -8,6 +8,7 @@ export enum RoleIDs {
   LittleGirl = 'little-girl',
   Defender = 'defender',
   BigBadWolf = 'big-bad-wolf',
+  Piper = 'piper',
 }
 
 export enum FutureRoleIDs {
@@ -28,7 +29,6 @@ export enum FutureRoleIDs {
   WildChild = 'wild-child',
   Wolfhound = 'wolf-hound',
   Angel = 'angel',
-  Piper = 'piper',
   PrejudicedManipulator = 'prejudiced-manipulator',
   Pyromaniac = 'pyromaniac',
   Scandalmonger = 'scandalmonger',
@@ -44,6 +44,7 @@ export type RoleIDsWithType<T> = {
 export enum Classifications {
   Werewolf = 'werewolf',
   Villager = 'villager',
+  Loner = 'loner',
 }
 
 export interface Role {
@@ -104,6 +105,11 @@ export const ROLES: Roles = {
     classification: Classifications.Villager,
     amount: 9,
     amountChangable: true,
+  },
+  [RoleIDs.Piper]: {
+    classification: Classifications.Loner,
+    amount: 1,
+    amountChangable: false,
   },
 };
 
@@ -192,11 +198,6 @@ export const FUTURE_ROLES: FutureRoles = {
     amountChangable: false,
   },
   [FutureRoleIDs.Angel]: {
-    classification: Classifications.Villager,
-    amount: 1,
-    amountChangable: false,
-  },
-  [FutureRoleIDs.Piper]: {
     classification: Classifications.Villager,
     amount: 1,
     amountChangable: false,

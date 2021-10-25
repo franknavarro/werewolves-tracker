@@ -15,6 +15,8 @@ export enum Phases {
   FortuneTeller = 'FortuneTeller',
   Werewolves = 'Werewolves',
   BigBadWolf = 'BigBadWolf',
+  Charmed = 'Charmed',
+  Piper = 'Piper',
   Witch = 'Witch',
   Defender = 'Defender',
   NightSummary = 'NightSummary',
@@ -43,6 +45,8 @@ export const PHASE_ORDER: PhaseInfo[] = [
   { id: Phases.Werewolves, firstNightOnly: false },
   { id: Phases.BigBadWolf, firstNightOnly: false },
   { id: Phases.Witch, firstNightOnly: false },
+  { id: Phases.Piper, firstNightOnly: false },
+  { id: Phases.Charmed, firstNightOnly: false },
   { id: Phases.NightSummary, firstNightOnly: false },
   { id: Phases.Hunter, firstNightOnly: false },
   { id: Phases.HunterSummary, firstNightOnly: false },
@@ -150,6 +154,21 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
+
+    case Phases.Piper:
+      if (!playersExist(state.players, [RoleIDs.Piper])) {
+        return goToNextPhase();
+      }
+      return setPhase(state, phaseIndex);
+
+    case Phases.Charmed:
+      if (
+        playersExist(state.players, [RoleIDs.Piper]) &&
+        state.players.some((player) => player.charmed)
+      ) {
+        return setPhase(state, phaseIndex);
+      }
+      return goToNextPhase();
 
     case Phases.NightSummary:
       return setPhase(state, phaseIndex);

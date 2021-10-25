@@ -56,6 +56,7 @@ const PickRoles: FC = () => {
         {
           [Classifications.Villager]: 0,
           [Classifications.Werewolf]: 0,
+          [Classifications.Loner]: 0,
         },
       );
 

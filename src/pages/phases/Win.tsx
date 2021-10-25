@@ -19,6 +19,7 @@ const WIN_COLORS: WinColors = {
   [WinningRoles.Villagers]: RoleIDs.Villager,
   [WinningRoles.Werewolves]: RoleIDs.Werewolf,
   [WinningRoles.Tie]: RoleIDs.Villager,
+  [WinningRoles.Piper]: RoleIDs.Piper,
 };
 
 type WinText = {
@@ -30,6 +31,7 @@ const WIN_TEXT: WinText = {
     'The villagers have successfully eliminated the werewolf threat.',
   [WinningRoles.Werewolves]: 'The werewolves have devoured the town.',
   [WinningRoles.Tie]: 'The town is no more. All players have died. Tied game.',
+  [WinningRoles.Piper]: 'The town has been charmed by the piper.',
 };
 
 const Win: FC<WinProps> = ({ winner }) => {

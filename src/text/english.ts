@@ -251,7 +251,7 @@ export const ROLE_TEXT: RoleText = {
       "Moderator advice: don't hesitate to remind players of the possible presence of the Angel on the first day! The debates will only get more animated, as loudmouths will be protected by the angelic menace!",
     ],
   },
-  [FutureRoleIDs.Piper]: {
+  [RoleIDs.Piper]: {
     displayName: 'Piper',
     description: [
       "Ignominously chased out of the village, he's come back years later under the cover of a false identity to exert his terrible revenge.",
@@ -308,4 +308,5 @@ type ClassificationText = {
 export const CLASSIFICATION_TEXT: ClassificationText = {
   [Classifications.Werewolf]: 'Werewolf',
   [Classifications.Villager]: 'Villager',
+  [Classifications.Loner]: 'Loner',
 };

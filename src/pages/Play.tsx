@@ -20,6 +20,8 @@ import Win from './phases/Win';
 import { Phases, PHASE_ORDER } from '../hooks/gameReducer/nextPhase';
 import Defender from './phases/Defender';
 import BigBadWolf from './phases/BigBadWolf';
+import Piper from './phases/Piper';
+import CharmedPlayers from './phases/CharmedPlayers';
 
 const Play: FC = () => {
   const state = useGame();
@@ -57,6 +59,10 @@ const Play: FC = () => {
       return <BigBadWolf />;
     case Phases.Witch:
       return <Witch />;
+    case Phases.Piper:
+      return <Piper />;
+    case Phases.Charmed:
+      return <CharmedPlayers />;
     case Phases.NightSummary:
       return (
         <NightSummary

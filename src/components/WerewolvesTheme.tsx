@@ -188,7 +188,7 @@ const theme = createTheme({
     dark: '#236088',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.Piper]: {
+  [RoleIDs.Piper]: {
     main: '#df4f9e',
     light: '#ff82cf',
     dark: '#aa0f70',

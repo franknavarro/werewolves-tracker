@@ -16,6 +16,7 @@ export interface Player {
   defended: boolean;
   role: Role;
   isInLove: boolean;
+  charmed: boolean;
 }
 
 export enum WitchPotionTypes {
@@ -57,6 +58,7 @@ interface GameContextType extends GameState {
   witchUsedPotion: (potion: WitchPotionTypes, usedOn: PlayerID[]) => void;
   resetGame: () => void;
   defendPlayer: (playerID: PlayerID) => void;
+  charmPlayers: (playerIDs: PlayerID[]) => void;
 }
 
 const GameContext = createContext<GameContextType>({
@@ -70,6 +72,7 @@ const GameContext = createContext<GameContextType>({
   witchUsedPotion: () => {},
   resetGame: () => {},
   defendPlayer: () => {},
+  charmPlayers: () => {},
 });
 
 export const useGame = () => {
@@ -107,6 +110,8 @@ export const PlayersProvider: FC = ({ children }) => {
         resetGame: () => dispatch({ type: GameActionTypes.ResetGame }),
         defendPlayer: (playerID) =>
           dispatch({ type: GameActionTypes.DefendPlayer, playerID }),
+        charmPlayers: (playerIDs) =>
+          dispatch({ type: GameActionTypes.CharmPlayers, playerIDs }),
       }}
     >
       {children}

@@ -21,6 +21,7 @@ export const addPlayers: Reducer<AddPlayersAction> = (state, action) => {
       defended: false,
       savedBy: null,
       isInLove: false,
+      charmed: false,
     })),
   };
 };
