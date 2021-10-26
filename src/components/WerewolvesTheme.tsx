@@ -104,7 +104,7 @@ const theme = createTheme({
     dark: '#007d30',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.Scapegoat]: {
+  [RoleIDs.Scapegoat]: {
     main: '#d0384a',
     light: '#ff6c76',
     dark: '#980023',

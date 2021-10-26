@@ -111,7 +111,7 @@ export const ROLE_TEXT: RoleText = {
       'Be careful: if the Elder is healed by the Witch, he only regains one life. (Variant for courageous players: if the Idiot has already been revealed, he gets eliminated with the Elder as, the village having lost its wisdom goes back on its decision to spare the Idiot).',
     ],
   },
-  [FutureRoleIDs.Scapegoat]: {
+  [RoleIDs.Scapegoat]: {
     displayName: 'Scapegoat',
     description: [
       "It's sad to say, but in Miller's Hollow, when something doesn't go right, it's always him who unjustly suffers the consequences.",

@@ -9,13 +9,13 @@ export enum RoleIDs {
   Defender = 'defender',
   BigBadWolf = 'big-bad-wolf',
   Piper = 'piper',
+  Scapegoat = 'scapegoat',
 }
 
 export enum FutureRoleIDs {
   AccursedWolfFather = 'accursed-wolf-father',
   WhiteWerewolf = 'white-werewolf',
   Elder = 'elder',
-  Scapegoat = 'scapegoat',
   VillageIdiot = 'village-idiot',
   TwoSisters = 'two-sisters',
   ThreeBrothers = 'three-brothers',
@@ -101,15 +101,20 @@ export const ROLES: Roles = {
     amount: 1,
     amountChangable: false,
   },
-  [RoleIDs.Villager]: {
-    classification: Classifications.Villager,
-    amount: 9,
-    amountChangable: true,
-  },
   [RoleIDs.Piper]: {
     classification: Classifications.Loner,
     amount: 1,
     amountChangable: false,
+  },
+  [RoleIDs.Scapegoat]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
+  [RoleIDs.Villager]: {
+    classification: Classifications.Villager,
+    amount: 9,
+    amountChangable: true,
   },
 };
 
@@ -128,11 +133,6 @@ export const FUTURE_ROLES: FutureRoles = {
     amountChangable: false,
   },
   [FutureRoleIDs.Elder]: {
-    classification: Classifications.Villager,
-    amount: 1,
-    amountChangable: false,
-  },
-  [FutureRoleIDs.Scapegoat]: {
     classification: Classifications.Villager,
     amount: 1,
     amountChangable: false,
