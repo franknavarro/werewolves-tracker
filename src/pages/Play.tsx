@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { Typography } from '@material-ui/core';
 import { useGame } from '../hooks/useGame';
 import AddPlayers from './phases/AddPlayers';
 import PickRoles from './phases/PickRoles';
@@ -85,12 +86,23 @@ const Play: FC = () => {
     case Phases.TownVote:
       return <TownVote />;
     case Phases.TownSummary:
+      const villageIdiotAlmostDied = players.find(
+        (p) => p.savedBy === RoleIDs.VillageIdiot,
+      );
       return (
         <NightSummary
           dead={diedTonightAtTheHandsOf(players, RoleIDs.Villager)}
+          saved={villageIdiotAlmostDied ? [villageIdiotAlmostDied] : []}
           title="Day Time Summary"
           theme={RoleIDs.Villager}
-        />
+        >
+          {villageIdiotAlmostDied && (
+            <Typography>
+              The town has voted to kill the village idiot. Reveal their
+              identity to the town and spare the idiot.
+            </Typography>
+          )}
+        </NightSummary>
       );
     case Phases.Win:
       if (winner) return <Win winner={winner} />;

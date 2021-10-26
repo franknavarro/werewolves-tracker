@@ -16,6 +16,7 @@ const killPlayer = (player: Player, causeOfDeath: RoleIDs) => {
 
 export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
   let brokenHeartDeath = false;
+  let villageIdiotSaved = state.villageIdiotSaved;
 
   let playersWithDeath = state.players.map((player) => {
     if (action.playerIDs.includes(player.id)) {
@@ -26,6 +27,16 @@ export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
         WEREWOLVES.includes(action.cause)
       ) {
         return savePlayer(player, RoleIDs.Defender);
+      }
+
+      // Save village idiot if dying from town vote.
+      if (
+        !villageIdiotSaved &&
+        player.role.id === RoleIDs.VillageIdiot &&
+        action.cause === RoleIDs.Villager
+      ) {
+        villageIdiotSaved = true;
+        return savePlayer(player, RoleIDs.VillageIdiot);
       }
 
       if (player.isInLove) brokenHeartDeath = true;
@@ -45,6 +56,7 @@ export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
 
   return {
     ...state,
+    villageIdiotSaved,
     players: playersWithDeath,
   };
 };

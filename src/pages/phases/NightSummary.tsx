@@ -12,7 +12,13 @@ interface SumaryProps {
   title: string;
 }
 
-const NightSummary: FC<SumaryProps> = ({ dead, saved = [], theme, title }) => {
+const NightSummary: FC<SumaryProps> = ({
+  children,
+  dead,
+  saved = [],
+  theme,
+  title,
+}) => {
   const { nextPhase } = useGame();
 
   const DeadPlayers = () => {
@@ -52,6 +58,7 @@ const NightSummary: FC<SumaryProps> = ({ dead, saved = [], theme, title }) => {
       <Typography component="h2" variant="h3">
         {title}
       </Typography>
+      {children}
       <DeadPlayers />
       <SavedPlayers />
       <Button
