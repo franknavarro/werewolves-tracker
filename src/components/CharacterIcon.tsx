@@ -1,12 +1,13 @@
 import {
   GiBrokenHeart,
   GiDeathSkull,
+  GiGoat,
   GiHealthPotion,
   GiMagicPotion,
   GiWolfHowl,
   GiCrosshair,
 } from 'react-icons/gi';
-import { FaHandSpock } from 'react-icons/fa';
+import { FaHandSpock, FaQuestion } from 'react-icons/fa';
 import { IoHandRightSharp } from 'react-icons/io5';
 import { FC } from 'react';
 import { RoleIDs } from '../hooks/roles';
@@ -30,6 +31,10 @@ const CharacterIcon: FC<CharacterIconProps> = ({ role, save }) => {
         return <GiWolfHowl />;
       case RoleIDs.Witch:
         return save ? <GiHealthPotion /> : <GiMagicPotion />;
+      case RoleIDs.Scapegoat:
+        return <GiGoat />;
+      case RoleIDs.VillageIdiot:
+        return <FaQuestion />;
       case RoleIDs.Defender:
         return <FaHandSpock />;
       case RoleIDs.Villager:
