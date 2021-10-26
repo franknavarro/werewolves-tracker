@@ -119,7 +119,7 @@ export const ROLE_TEXT: RoleText = {
       "Be careful: choosing only 1 player to vote is to risk them getting devoured by the Werewolves on the next night.  There would then be no Village vote.  (Except, of course, if the chosen player is a Werewolf, or if the Werewolves deliberately don't eat the chosen player..)",
     ],
   },
-  [FutureRoleIDs.VillageIdiot]: {
+  [RoleIDs.VillageIdiot]: {
     displayName: 'Village Idiot',
     description: [
       "What is a village without an Idiot? He does pretty much nothing important, but he's so charming that no one would want to hurt him...",

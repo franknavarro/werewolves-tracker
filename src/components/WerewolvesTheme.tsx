@@ -110,7 +110,7 @@ const theme = createTheme({
     dark: '#980023',
     contrastText: '#ffffff',
   },
-  [FutureRoleIDs.VillageIdiot]: {
+  [RoleIDs.VillageIdiot]: {
     main: '#f9ea25',
     light: '#ffff63',
     dark: '#c2b800',
