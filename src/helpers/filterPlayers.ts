@@ -69,10 +69,10 @@ export const hunterDiedTonight = (players: Player[]): boolean => {
 
 export const diedTonightAtTheHandsOf = (
   players: Player[],
-  role: AllRoleIDs,
+  roles: (AllRoleIDs | null)[],
 ) => {
   const diedAtTheHandsOf = (player: Player) => {
-    return player.causeOfDeath === role && player.diedTonight;
+    return player.diedTonight && roles.includes(player.causeOfDeath);
   };
 
   const loversDeath = players.some(

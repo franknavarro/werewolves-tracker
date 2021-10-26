@@ -78,7 +78,7 @@ const Play: FC = () => {
     case Phases.HunterSummary:
       return (
         <NightSummary
-          dead={diedTonightAtTheHandsOf(players, RoleIDs.Hunter)}
+          dead={diedTonightAtTheHandsOf(players, [RoleIDs.Hunter])}
           title="Hunter Summary"
           theme={RoleIDs.Hunter}
         />
@@ -89,13 +89,28 @@ const Play: FC = () => {
       const villageIdiotAlmostDied = players.find(
         (p) => p.savedBy === RoleIDs.VillageIdiot,
       );
+      const deadCharacters = diedTonightAtTheHandsOf(players, [
+        RoleIDs.Villager,
+        RoleIDs.Scapegoat,
+      ]);
+      const scapegoatDied = deadCharacters.some(
+        (p) =>
+          p.role.id === RoleIDs.Scapegoat &&
+          p.causeOfDeath === RoleIDs.Scapegoat,
+      );
       return (
         <NightSummary
-          dead={diedTonightAtTheHandsOf(players, RoleIDs.Villager)}
+          dead={deadCharacters}
           saved={villageIdiotAlmostDied ? [villageIdiotAlmostDied] : []}
           title="Day Time Summary"
           theme={RoleIDs.Villager}
         >
+          {scapegoatDied && (
+            <Typography>
+              The town vote has ended in a tie, so the scapegoat will die in
+              place of the tie.
+            </Typography>
+          )}
           {villageIdiotAlmostDied && (
             <Typography>
               The town has voted to kill the village idiot. Reveal their

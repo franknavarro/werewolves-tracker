@@ -181,7 +181,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
         (p) =>
           p.role.id === RoleIDs.Scapegoat &&
           p.diedTonight &&
-          p.causeOfDeath === RoleIDs.Villager,
+          p.causeOfDeath === RoleIDs.Scapegoat,
       );
       return setPhase({ ...state, scapegoatVotes }, phaseIndex);
 

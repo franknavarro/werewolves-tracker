@@ -23,7 +23,7 @@ const TownVote: FC = () => {
           (p) => p.causeOfDeath === null && p.role.id === RoleIDs.Scapegoat,
         );
         if (scapegoat) {
-          killPlayers([scapegoat.id], RoleIDs.Villager);
+          killPlayers([scapegoat.id], RoleIDs.Scapegoat);
         }
       }
     }
