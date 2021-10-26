@@ -177,7 +177,13 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       return setPhase(state, phaseIndex);
 
     case Phases.TownSummary:
-      return setPhase(state, phaseIndex);
+      const scapegoatVotes = state.players.some(
+        (p) =>
+          p.role.id === RoleIDs.Scapegoat &&
+          p.diedTonight &&
+          p.causeOfDeath === RoleIDs.Villager,
+      );
+      return setPhase({ ...state, scapegoatVotes }, phaseIndex);
 
     case Phases.Hunter:
       if (!hunterDiedTonight(state.players)) return goToNextPhase(2);

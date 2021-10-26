@@ -33,6 +33,7 @@ export interface GameState {
   isFirstNight: boolean;
   phaseIndex: number;
   witchPotions: WitchPotions;
+  scapegoatVotes: boolean;
   winner: WinningRoles | null;
 }
 
@@ -40,6 +41,7 @@ export const DEFAULT_GAME_STATE = (): GameState => ({
   players: [],
   roles: [],
   isFirstNight: true,
+  scapegoatVotes: false,
   phaseIndex: 0,
   witchPotions: {
     [WitchPotionTypes.Life]: false,
