@@ -241,7 +241,7 @@ export const ROLE_TEXT: RoleText = {
       "Moderator advice: not revealing the true nature of the Wolf-hound eliminated by the village's vote can be amusing.  The doubt about his true identity the remains: was he a villager or a Werewolf before being eliminated?",
     ],
   },
-  [FutureRoleIDs.Angel]: {
+  [RoleIDs.Angel]: {
     displayName: 'Angel',
     description: [
       "The muddy life of a village infested with evil creatures repulses him; he wishes to believe he's the victim of a terrible nightmare, in order to finally wake up in his comfortable bed.",

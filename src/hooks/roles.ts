@@ -11,6 +11,7 @@ export enum RoleIDs {
   Piper = 'piper',
   Scapegoat = 'scapegoat',
   VillageIdiot = 'village-idiot',
+  Angel = 'angel',
 }
 
 export enum FutureRoleIDs {
@@ -28,7 +29,6 @@ export enum FutureRoleIDs {
   Actor = 'actor',
   WildChild = 'wild-child',
   Wolfhound = 'wolf-hound',
-  Angel = 'angel',
   PrejudicedManipulator = 'prejudiced-manipulator',
   Pyromaniac = 'pyromaniac',
   Scandalmonger = 'scandalmonger',
@@ -116,6 +116,11 @@ export const ROLES: Roles = {
     amount: 1,
     amountChangable: false,
   },
+  [RoleIDs.Angel]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
   [RoleIDs.Villager]: {
     classification: Classifications.Villager,
     amount: 9,
@@ -193,11 +198,6 @@ export const FUTURE_ROLES: FutureRoles = {
     amountChangable: false,
   },
   [FutureRoleIDs.Wolfhound]: {
-    classification: Classifications.Villager,
-    amount: 1,
-    amountChangable: false,
-  },
-  [FutureRoleIDs.Angel]: {
     classification: Classifications.Villager,
     amount: 1,
     amountChangable: false,

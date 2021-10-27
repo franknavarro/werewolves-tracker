@@ -182,7 +182,7 @@ const theme = createTheme({
     dark: '#6c2512',
     contrastText: '#ffffff',
   },
-  [FutureRoleIDs.Angel]: {
+  [RoleIDs.Angel]: {
     main: '#588db8',
     light: '#8abdea',
     dark: '#236088',

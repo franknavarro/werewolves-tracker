@@ -55,7 +55,7 @@ const SVG_PATHS: SvgPaths = {
   [RoleIDs.Witch]: WitchIcon,
   [FutureRoleIDs.AccursedWolfFather]: AccursedWolfFatherIcon,
   [FutureRoleIDs.Actor]: ActorIcon,
-  [FutureRoleIDs.Angel]: AngelIcon,
+  [RoleIDs.Angel]: AngelIcon,
   [FutureRoleIDs.WhiteWerewolf]: WhiteWerewolfIcon,
   [FutureRoleIDs.Elder]: ElderIcon,
   [RoleIDs.Scapegoat]: ScapegoatIcon,
