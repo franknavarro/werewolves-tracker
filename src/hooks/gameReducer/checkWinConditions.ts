@@ -15,12 +15,14 @@ type WinningRoleCounts = {
   [key in WinningRoles]: number;
 };
 
-export const checkWinConditions = ({
-  players,
-  dayCount,
-  nightCount,
-}: GameState): WinningRoles | null => {
-  if (dayCount === 0 || nightCount === 0) {
+export const checkWinConditions = (
+  { players, dayCount, nightCount }: GameState,
+  checkNightTime: boolean,
+): WinningRoles | null => {
+  if (
+    (nightCount === 0 && checkNightTime) ||
+    (dayCount === 0 && !checkNightTime)
+  ) {
     const angelDied = players.some(
       (p) => p.role.id === RoleIDs.Angel && p.causeOfDeath,
     );

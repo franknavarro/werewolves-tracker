@@ -36,28 +36,29 @@ export type NextPhaseAction = {
 type PhaseInfo = {
   id: Phases;
   firstNightOnly: boolean;
+  nightTime: boolean;
 };
 
 export const PHASE_ORDER: PhaseInfo[] = [
-  { id: Phases.Angel, firstNightOnly: true },
-  { id: Phases.NightTime, firstNightOnly: false },
-  { id: Phases.Cupid, firstNightOnly: true },
-  { id: Phases.FortuneTeller, firstNightOnly: false },
-  { id: Phases.Defender, firstNightOnly: false },
-  { id: Phases.Werewolves, firstNightOnly: false },
-  { id: Phases.BigBadWolf, firstNightOnly: false },
-  { id: Phases.Witch, firstNightOnly: false },
-  { id: Phases.Piper, firstNightOnly: false },
-  { id: Phases.Charmed, firstNightOnly: false },
-  { id: Phases.NightSummary, firstNightOnly: false },
-  { id: Phases.Hunter, firstNightOnly: false },
-  { id: Phases.HunterSummary, firstNightOnly: false },
-  { id: Phases.Win, firstNightOnly: false },
-  { id: Phases.TownVote, firstNightOnly: false },
-  { id: Phases.TownSummary, firstNightOnly: false },
-  { id: Phases.Hunter, firstNightOnly: false },
-  { id: Phases.HunterSummary, firstNightOnly: false },
-  { id: Phases.Win, firstNightOnly: false },
+  { id: Phases.Angel, firstNightOnly: true, nightTime: true },
+  { id: Phases.NightTime, firstNightOnly: false, nightTime: true },
+  { id: Phases.Cupid, firstNightOnly: true, nightTime: true },
+  { id: Phases.FortuneTeller, firstNightOnly: false, nightTime: true },
+  { id: Phases.Defender, firstNightOnly: false, nightTime: true },
+  { id: Phases.Werewolves, firstNightOnly: false, nightTime: true },
+  { id: Phases.BigBadWolf, firstNightOnly: false, nightTime: true },
+  { id: Phases.Witch, firstNightOnly: false, nightTime: true },
+  { id: Phases.Piper, firstNightOnly: false, nightTime: true },
+  { id: Phases.Charmed, firstNightOnly: false, nightTime: true },
+  { id: Phases.NightSummary, firstNightOnly: false, nightTime: true },
+  { id: Phases.Hunter, firstNightOnly: false, nightTime: true },
+  { id: Phases.HunterSummary, firstNightOnly: false, nightTime: true },
+  { id: Phases.Win, firstNightOnly: false, nightTime: true },
+  { id: Phases.TownVote, firstNightOnly: false, nightTime: false },
+  { id: Phases.TownSummary, firstNightOnly: false, nightTime: false },
+  { id: Phases.Hunter, firstNightOnly: false, nightTime: false },
+  { id: Phases.HunterSummary, firstNightOnly: false, nightTime: false },
+  { id: Phases.Win, firstNightOnly: false, nightTime: false },
 ];
 
 const setPhase = (
@@ -207,7 +208,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       return setPhase(resetHunter(state), phaseIndex);
 
     case Phases.Win:
-      const winner = checkWinConditions(state);
+      const winner = checkWinConditions(state, phaseInfo.nightTime);
       if (!winner) return goToNextPhase();
       return setPhase({ ...state, winner }, phaseIndex);
   }
