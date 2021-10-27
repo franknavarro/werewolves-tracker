@@ -10,6 +10,7 @@ import { GameState } from '../useGame';
 import { checkWinConditions } from './checkWinConditions';
 
 export enum Phases {
+  Angel = 'Angel',
   NightTime = 'NightTime',
   Cupid = 'Cupid',
   FortuneTeller = 'FortuneTeller',
@@ -38,6 +39,7 @@ type PhaseInfo = {
 };
 
 export const PHASE_ORDER: PhaseInfo[] = [
+  { id: Phases.Angel, firstNightOnly: true },
   { id: Phases.NightTime, firstNightOnly: false },
   { id: Phases.Cupid, firstNightOnly: true },
   { id: Phases.FortuneTeller, firstNightOnly: false },
@@ -81,7 +83,7 @@ const resetNight = (state: GameState): GameState => {
   const defenderDead = playersDied(state.players, [RoleIDs.Defender], true);
   return {
     ...state,
-    isFirstNight: false,
+    nightCount: state.nightCount + 1,
     players: state.players.map((player) => ({
       ...player,
       defended: defenderDead ? false : player.defended,
@@ -108,11 +110,23 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
 
   const phaseInfo = PHASE_ORDER[phaseIndex];
 
-  if (phaseInfo.firstNightOnly && !state.isFirstNight) {
+  if (phaseInfo.firstNightOnly && state.nightCount > 0) {
     return goToNextPhase();
   }
 
   switch (phaseInfo.id) {
+    case Phases.Angel:
+      if (
+        state.dayCount === -1 &&
+        playersExist(state.players, [RoleIDs.Angel])
+      ) {
+        const townVoteIndex = PHASE_ORDER.findIndex(
+          (phase) => phase.id === Phases.TownVote,
+        );
+        return setPhase({ ...state, dayCount: 0 }, townVoteIndex);
+      }
+      return goToNextPhase();
+
     case Phases.NightTime:
       return setPhase(resetNight(state), phaseIndex);
 
@@ -174,7 +188,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       return setPhase(state, phaseIndex);
 
     case Phases.TownVote:
-      return setPhase(state, phaseIndex);
+      return setPhase({ ...state, dayCount: state.dayCount + 1 }, phaseIndex);
 
     case Phases.TownSummary:
       const scapegoatVotes = state.players.some(
@@ -193,7 +207,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       return setPhase(resetHunter(state), phaseIndex);
 
     case Phases.Win:
-      const winner = checkWinConditions(state.players);
+      const winner = checkWinConditions(state);
       if (!winner) return goToNextPhase();
       return setPhase({ ...state, winner }, phaseIndex);
   }

@@ -1,6 +1,6 @@
 import { alive } from '../../helpers/filterPlayers';
 import { Classifications, RoleIDs } from '../roles';
-import { Player } from '../useGame';
+import { GameState } from '../useGame';
 
 export enum WinningRoles {
   Villagers = 'Villager',
@@ -8,13 +8,27 @@ export enum WinningRoles {
   Lovers = 'Lovers',
   Piper = 'Piper',
   Tie = 'Tie',
+  Angel = 'Angel',
 }
 
 type WinningRoleCounts = {
   [key in WinningRoles]: number;
 };
 
-export const checkWinConditions = (players: Player[]): WinningRoles | null => {
+export const checkWinConditions = ({
+  players,
+  dayCount,
+  nightCount,
+}: GameState): WinningRoles | null => {
+  if (dayCount === 0 || nightCount === 0) {
+    const angelDied = players.some(
+      (p) => p.role.id === RoleIDs.Angel && p.causeOfDeath,
+    );
+    if (angelDied) {
+      return WinningRoles.Angel;
+    }
+  }
+
   const alivePlayers = alive(players);
   if (alivePlayers.length === 0) return WinningRoles.Tie;
 
@@ -39,6 +53,7 @@ export const checkWinConditions = (players: Player[]): WinningRoles | null => {
       [WinningRoles.Lovers]: 0,
       [WinningRoles.Piper]: 0,
       [WinningRoles.Tie]: 0,
+      [WinningRoles.Angel]: 0,
     },
   );
 

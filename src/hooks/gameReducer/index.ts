@@ -51,6 +51,10 @@ const reducer: Reducer = (state, action) => {
 
     case GameActionTypes.AddPlayers:
       newState = addPlayers(state, action);
+      newState = nextPhase(newState, {
+        type: GameActionTypes.NextPhase,
+        phaseIndex: 0,
+      });
       break;
 
     case GameActionTypes.NextPhase:

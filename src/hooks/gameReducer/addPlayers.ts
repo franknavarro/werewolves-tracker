@@ -1,6 +1,5 @@
 import { GameActionTypes, Reducer } from '.';
 import { Player } from '../useGame';
-import { Phases } from './nextPhase';
 
 export type PlayerSetUp = Pick<Player, 'name' | 'role'>;
 
@@ -12,7 +11,6 @@ export type AddPlayersAction = {
 export const addPlayers: Reducer<AddPlayersAction> = (state, action) => {
   return {
     ...state,
-    currentPhase: Phases.NightTime,
     players: action.playerSetUp.map((player, index) => ({
       ...player,
       id: index,

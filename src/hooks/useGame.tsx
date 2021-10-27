@@ -30,8 +30,9 @@ type WitchPotions = {
 export interface GameState {
   players: Player[];
   roles: Role[];
-  isFirstNight: boolean;
   phaseIndex: number;
+  nightCount: number;
+  dayCount: number;
   witchPotions: WitchPotions;
   scapegoatVotes: boolean;
   villageIdiotSaved: boolean;
@@ -41,8 +42,9 @@ export interface GameState {
 export const DEFAULT_GAME_STATE = (): GameState => ({
   players: [],
   roles: [],
-  isFirstNight: true,
   scapegoatVotes: false,
+  nightCount: -1,
+  dayCount: -1,
   villageIdiotSaved: false,
   phaseIndex: 0,
   witchPotions: {
