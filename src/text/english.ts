@@ -128,7 +128,7 @@ export const ROLE_TEXT: RoleText = {
       'Be careful: if the Werewolves devour him, the Idiot is eliminated. If the Idiot is eliminated while he was the Sheriff, he does not pass this function, and there will thus no longer be a Sheriff. If the Hunter shoots the Idiot, the Idiot gets eliminated.',
     ],
   },
-  [FutureRoleIDs.TwoSisters]: {
+  [RoleIDs.TwoSisters]: {
     displayName: 'Two Sisters',
     description: [
       "Some of the village's inhabitants confuse them when they meet one of the Two Sisters around the corner of a country road.",

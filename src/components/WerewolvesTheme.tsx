@@ -116,7 +116,7 @@ const theme = createTheme({
     dark: '#c2b800',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.TwoSisters]: {
+  [RoleIDs.TwoSisters]: {
     main: '#e0c64d',
     light: '#fff97e',
     dark: '#ab9617',
