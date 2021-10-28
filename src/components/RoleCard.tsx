@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { Grid, makeStyles, Paper, Theme } from '@material-ui/core';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { FC } from 'react';
 import { Role } from '../hooks/roles';
+import StackIcon from './StackIcon';
 import RoleSvg from './RoleSvg';
 
 interface RoleCardProps {
@@ -89,7 +89,7 @@ const RoleCard: FC<RoleCardProps> = ({ role, onClick, disabled, selected }) => {
             classes.selectedBox,
           )}
         >
-          <CheckCircleIcon fontSize="large" />
+          <StackIcon amount={role.amount} />
         </span>
       </Paper>
     </Grid>

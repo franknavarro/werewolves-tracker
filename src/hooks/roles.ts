@@ -123,7 +123,7 @@ export const ROLES: Roles = {
   },
   [RoleIDs.TwoSisters]: {
     classification: Classifications.Villager,
-    amount: 1,
+    amount: 2,
     amountChangable: false,
   },
   [RoleIDs.Villager]: {
