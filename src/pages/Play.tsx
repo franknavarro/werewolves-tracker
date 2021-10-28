@@ -23,6 +23,7 @@ import Defender from './phases/Defender';
 import BigBadWolf from './phases/BigBadWolf';
 import Piper from './phases/Piper';
 import CharmedPlayers from './phases/CharmedPlayers';
+import WakeSleep from './phases/WakeSleep';
 
 const Play: FC = () => {
   const state = useGame();
@@ -64,6 +65,14 @@ const Play: FC = () => {
       return <Piper />;
     case Phases.Charmed:
       return <CharmedPlayers />;
+    case Phases.TwoSisters:
+      return (
+        <WakeSleep roles={[RoleIDs.TwoSisters]}>
+          <Typography>
+            Allow sisters to communicate for a short time.
+          </Typography>
+        </WakeSleep>
+      );
     case Phases.NightSummary:
       return (
         <NightSummary
@@ -122,7 +131,8 @@ const Play: FC = () => {
     case Phases.Win:
       if (winner) return <Win winner={winner} />;
   }
-  return <NightTime />;
+
+  return <div>Error</div>;
 };
 
 export default Play;
