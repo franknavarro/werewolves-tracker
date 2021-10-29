@@ -13,6 +13,7 @@ import NightTime from './phases/NightTime';
 import Cupid from './phases/Cupid';
 import FortuneTeller from './phases/FortuneTeller';
 import Werewolves from './phases/Werewolves';
+import WhiteWerewolf from './phases/WhiteWerewolf';
 import Witch from './phases/Witch';
 import Summary from './phases/Summary';
 import Hunter from './phases/Hunter';
@@ -57,6 +58,8 @@ const Play: FC = () => {
       return <Defender />;
     case Phases.Werewolves:
       return <Werewolves />;
+    case Phases.WhiteWerewolf:
+      return <WhiteWerewolf />;
     case Phases.BigBadWolf:
       return <BigBadWolf />;
     case Phases.Witch:

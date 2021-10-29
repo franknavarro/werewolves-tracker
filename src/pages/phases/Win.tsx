@@ -18,6 +18,7 @@ const WIN_COLORS: WinColors = {
   [WinningRoles.Lovers]: RoleIDs.Cupid,
   [WinningRoles.Villagers]: RoleIDs.Villager,
   [WinningRoles.Werewolves]: RoleIDs.Werewolf,
+  [WinningRoles.WhiteWerewolf]: RoleIDs.WhiteWerewolf,
   [WinningRoles.Tie]: RoleIDs.Villager,
   [WinningRoles.Piper]: RoleIDs.Piper,
   [WinningRoles.Angel]: RoleIDs.Angel,
@@ -31,6 +32,7 @@ const WIN_TEXT: WinText = {
   [WinningRoles.Villagers]:
     'The villagers have successfully eliminated the werewolf threat.',
   [WinningRoles.Werewolves]: 'The werewolves have devoured the town.',
+  [WinningRoles.WhiteWerewolf]: 'The white werewolf has devoured the town.',
   [WinningRoles.Tie]: 'The town is no more. All players have died. Tied game.',
   [WinningRoles.Piper]: 'The town has been charmed by the piper.',
   [WinningRoles.Angel]:

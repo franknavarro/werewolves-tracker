@@ -25,6 +25,8 @@ const Werewolves: FC = () => {
     nextPhase();
   };
 
+  const killablePlayers = aliveAndNotRoles(players, WEREWOLVES);
+
   return (
     <PageColor color={RoleIDs.BigBadWolf}>
       <Typography component="h1" variant="h3">
@@ -34,13 +36,19 @@ const Werewolves: FC = () => {
       <Typography component="h1" variant="h3">
         Who would the werewolves like to kill?
       </Typography>
+      {killablePlayers.length < 1 && (
+        <Typography>
+          No characters remaining for the werewolves to kill. Click "Continue"
+          to proceed.
+        </Typography>
+      )}
       <PlayerList
-        players={aliveAndNotRoles(players, WEREWOLVES)}
+        players={killablePlayers}
         maxSelectable={1}
-        minSelectable={1}
+        minSelectable={killablePlayers.length ? 1 : 0}
         selectable
         onSubmit={handleSubmit}
-        submitText="Kill Players"
+        submitText={killablePlayers.length ? 'Kill Players' : 'Continue'}
       />
     </PageColor>
   );

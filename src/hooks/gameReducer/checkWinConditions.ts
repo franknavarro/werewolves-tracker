@@ -5,6 +5,7 @@ import { GameState } from '../useGame';
 export enum WinningRoles {
   Villagers = 'Villager',
   Werewolves = 'Werewolves',
+  WhiteWerewolf = 'WhiteWerewolf',
   Lovers = 'Lovers',
   Piper = 'Piper',
   Tie = 'Tie',
@@ -35,10 +36,12 @@ export const checkWinConditions = (
   if (alivePlayers.length === 0) return WinningRoles.Tie;
 
   let piperAlive = false;
+  let whiteWerewolfAlive = false;
 
   const winningCounts = alivePlayers.reduce<WinningRoleCounts>(
     (prevCounts, player) => {
       if (player.role.id === RoleIDs.Piper) piperAlive = true;
+      if (player.role.id === RoleIDs.WhiteWerewolf) whiteWerewolfAlive = true;
       if (player.charmed) prevCounts[WinningRoles.Piper]++;
       if (player.isInLove) prevCounts[WinningRoles.Lovers]++;
       if (player.role.classification === Classifications.Werewolf) {
@@ -52,6 +55,7 @@ export const checkWinConditions = (
     {
       [WinningRoles.Villagers]: 0,
       [WinningRoles.Werewolves]: 0,
+      [WinningRoles.WhiteWerewolf]: 0,
       [WinningRoles.Lovers]: 0,
       [WinningRoles.Piper]: 0,
       [WinningRoles.Tie]: 0,
@@ -64,6 +68,8 @@ export const checkWinConditions = (
     winningCounts[WinningRoles.Piper] === alivePlayers.length - 1
   ) {
     return WinningRoles.Piper;
+  } else if (whiteWerewolfAlive && alivePlayers.length === 1) {
+    return WinningRoles.WhiteWerewolf;
   } else if (winningCounts[WinningRoles.Werewolves] === alivePlayers.length) {
     return WinningRoles.Werewolves;
   } else if (winningCounts[WinningRoles.Villagers] === alivePlayers.length) {
