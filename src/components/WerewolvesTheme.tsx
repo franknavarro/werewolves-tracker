@@ -122,7 +122,7 @@ const theme = createTheme({
     dark: '#ab9617',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.ThreeBrothers]: {
+  [RoleIDs.ThreeBrothers]: {
     main: '#e4c240',
     light: '#fff472',
     dark: '#ae9200',

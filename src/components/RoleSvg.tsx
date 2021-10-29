@@ -61,7 +61,7 @@ const SVG_PATHS: SvgPaths = {
   [RoleIDs.Scapegoat]: ScapegoatIcon,
   [RoleIDs.VillageIdiot]: VillageIdiotIcon,
   [RoleIDs.TwoSisters]: TwoSistersIcon,
-  [FutureRoleIDs.ThreeBrothers]: ThreeBrothersIcon,
+  [RoleIDs.ThreeBrothers]: ThreeBrothersIcon,
   [FutureRoleIDs.Fox]: FoxIcon,
   [FutureRoleIDs.BearTamer]: BearTamerIcon,
   [FutureRoleIDs.StutteringJudge]: StutteringJudgeIcon,

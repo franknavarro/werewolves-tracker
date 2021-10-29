@@ -154,7 +154,7 @@ export const ROLE_TEXT: RoleText = {
       'Moderator advice: particularly powerful with players who know sign language.',
     ],
   },
-  [FutureRoleIDs.ThreeBrothers]: {
+  [RoleIDs.ThreeBrothers]: {
     displayName: 'Three Brothers',
     wakeUp: 'Wake Up the Three Brothers',
     description: [
