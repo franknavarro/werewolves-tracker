@@ -9,6 +9,10 @@ import { witchUsedPotion, WitchUsedPotionAction } from './witchUsedPotion';
 import { defendPlayer, DefendPlayerAction } from './defendPlayer';
 import { charmPlayers, CharmPlayersAction } from './charmPlayers';
 import { saveToLocalStorage } from './localStorage';
+import {
+  foxFoundWerewolves,
+  FoxFoundWerewolvesAction,
+} from './foxFoundWerewolves';
 
 export enum GameActionTypes {
   AddRoles = 'ADD_ROLES',
@@ -21,6 +25,7 @@ export enum GameActionTypes {
   ResetGame = 'RESET_GAME',
   DefendPlayer = 'DEFEND_PLAYER',
   CharmPlayers = 'CHARM_PLAYERS',
+  FoxFoundWerewolves = 'FOX_FOUND_WEREWOLVES',
 }
 
 type ResetGameAction = { type: GameActionTypes.ResetGame };
@@ -35,7 +40,8 @@ type GameActions =
   | WitchUsedPotionAction
   | ResetGameAction
   | DefendPlayerAction
-  | CharmPlayersAction;
+  | CharmPlayersAction
+  | FoxFoundWerewolvesAction;
 
 export type Reducer<Action = GameActions> = (
   state: GameState,
@@ -83,6 +89,10 @@ const reducer: Reducer = (state, action) => {
 
     case GameActionTypes.CharmPlayers:
       newState = charmPlayers(state, action);
+      break;
+
+    case GameActionTypes.FoxFoundWerewolves:
+      newState = foxFoundWerewolves(state, action);
       break;
 
     case GameActionTypes.ResetGame:

@@ -12,6 +12,7 @@ import { RoleIDs } from '../hooks/roles';
 import NightTime from './phases/NightTime';
 import Cupid from './phases/Cupid';
 import FortuneTeller from './phases/FortuneTeller';
+import Fox from './phases/Fox';
 import Werewolves from './phases/Werewolves';
 import WhiteWerewolf from './phases/WhiteWerewolf';
 import Witch from './phases/Witch';
@@ -54,6 +55,8 @@ const Play: FC = () => {
       return <Cupid />;
     case Phases.FortuneTeller:
       return <FortuneTeller />;
+    case Phases.Fox:
+      return <Fox />;
     case Phases.Defender:
       return <Defender />;
     case Phases.Werewolves:

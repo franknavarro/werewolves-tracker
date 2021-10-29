@@ -34,6 +34,7 @@ export interface GameState {
   nightCount: number;
   dayCount: number;
   witchPotions: WitchPotions;
+  foxActive: boolean;
   scapegoatVotes: boolean;
   villageIdiotSaved: boolean;
   winner: WinningRoles | null;
@@ -47,6 +48,7 @@ export const DEFAULT_GAME_STATE = (): GameState => ({
   dayCount: -1,
   villageIdiotSaved: false,
   phaseIndex: 0,
+  foxActive: true,
   witchPotions: {
     [WitchPotionTypes.Life]: false,
     [WitchPotionTypes.Death]: false,
@@ -62,6 +64,7 @@ interface GameContextType extends GameState {
   killPlayers: (playerIDs: PlayerID[], cause: RoleIDs) => void;
   savePlayers: (playerIDs: PlayerID[], savedBy: RoleIDs) => void;
   witchUsedPotion: (potion: WitchPotionTypes, usedOn: PlayerID[]) => void;
+  foxFoundWerewolves: (playerIDs: PlayerID[]) => void;
   resetGame: () => void;
   defendPlayer: (playerID: PlayerID) => void;
   charmPlayers: (playerIDs: PlayerID[]) => void;
@@ -76,6 +79,7 @@ const GameContext = createContext<GameContextType>({
   killPlayers: () => {},
   savePlayers: () => {},
   witchUsedPotion: () => {},
+  foxFoundWerewolves: () => {},
   resetGame: () => {},
   defendPlayer: () => {},
   charmPlayers: () => {},
@@ -113,6 +117,8 @@ export const PlayersProvider: FC = ({ children }) => {
           }),
         witchUsedPotion: (potion, usedOn) =>
           dispatch({ type: GameActionTypes.WitchUsedPotion, potion, usedOn }),
+        foxFoundWerewolves: (playerIDs) =>
+          dispatch({ type: GameActionTypes.FoxFoundWerewolves, playerIDs }),
         resetGame: () => dispatch({ type: GameActionTypes.ResetGame }),
         defendPlayer: (playerID) =>
           dispatch({ type: GameActionTypes.DefendPlayer, playerID }),
