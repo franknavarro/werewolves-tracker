@@ -11,7 +11,11 @@ import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
 
 // TODO: Add any werewolves that wake up with normal werewolves here.
-export const WEREWOLVES = [RoleIDs.Werewolf, RoleIDs.BigBadWolf];
+export const WEREWOLVES = [
+  RoleIDs.Werewolf,
+  RoleIDs.BigBadWolf,
+  RoleIDs.WhiteWerewolf,
+];
 
 const Werewolves: FC = () => {
   const { killPlayers, players, nextPhase } = useGame();

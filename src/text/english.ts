@@ -103,7 +103,7 @@ export const ROLE_TEXT: RoleText = {
       "The Moderator then touches the infected inhabitant who then immediately (and secretly) becomes a Werewolf, and who will take part each night in the Werewolves' feast.  If the player had a nocturnal power, they will be woken up by the Moderator on following turns to use this power, in addition to being called with the Werewolves.",
     ],
   },
-  [FutureRoleIDs.WhiteWerewolf]: {
+  [RoleIDs.WhiteWerewolf]: {
     displayName: 'White Werewolf',
     wakeUp: 'Wake Up the White Werewolf',
     description: [

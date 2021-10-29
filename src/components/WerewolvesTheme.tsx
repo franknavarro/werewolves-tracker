@@ -92,7 +92,7 @@ const theme = createTheme({
     dark: '#6b200f',
     contrastText: '#ffffff',
   },
-  [FutureRoleIDs.WhiteWerewolf]: {
+  [RoleIDs.WhiteWerewolf]: {
     main: '#935050',
     light: '#c67d7c',
     dark: '#622528',
