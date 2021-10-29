@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import PageColor from '../../components/PageColor';
 import PlayerList from '../../components/PlayerList';
@@ -17,10 +17,9 @@ const FortuneTeller: FC = () => {
       <PlayerList
         players={aliveAndNotRoles(players, [RoleIDs.FortuneTeller])}
         showPlayerInfo
+        onSubmit={() => nextPhase()}
+        submitText="Go to Sleep"
       />
-      <Button color="secondary" variant="contained" onClick={() => nextPhase()}>
-        Next
-      </Button>
     </PageColor>
   );
 };

@@ -19,6 +19,7 @@ export interface PlayerListProps {
   disabledPlayers?: PlayerID[];
   showCounter?: boolean;
   onSubmit?: (interactablePlayers: InteractablePlayer[]) => void;
+  submitText?: string | string[];
 }
 
 const useStyles = makeStyles({
@@ -37,6 +38,7 @@ const PlayerList: FC<PlayerListProps> = ({
   showSavedIcon,
   showCounter,
   onSubmit,
+  submitText,
   disabledPlayers = [],
 }) => {
   const classes = useStyles();
@@ -76,6 +78,19 @@ const PlayerList: FC<PlayerListProps> = ({
 
   const amountSelected = interactablePlayers.filter((player) => player.selected)
     .length;
+
+  let buttonText = 'Next';
+  if (submitText) {
+    if (Array.isArray(submitText)) {
+      const submitIndex =
+        amountSelected < submitText.length
+          ? amountSelected
+          : submitText.length - 1;
+      buttonText = submitText[submitIndex];
+    } else {
+      buttonText = submitText;
+    }
+  }
 
   return (
     <>
@@ -124,7 +139,7 @@ const PlayerList: FC<PlayerListProps> = ({
             }
             onClick={() => onSubmit(interactablePlayers)}
           >
-            Next
+            {buttonText}
           </Button>
         </Container>
       )}

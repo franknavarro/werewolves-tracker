@@ -42,14 +42,19 @@ const Witch: FC = () => {
         </Typography>
         {witchPotions[WitchPotionTypes.Life] && (
           <Typography>
-            Witch already used life potion. Click "Next" to continue.
+            Witch already used life potion. Click "Continue" to proceed.
           </Typography>
         )}
         <PlayerList
-          players={tonightsWerewolfVictim(players)}
-          maxSelectable={witchPotions[WitchPotionTypes.Life] ? 0 : 1}
+          players={
+            witchPotions[WitchPotionTypes.Life]
+              ? []
+              : tonightsWerewolfVictim(players)
+          }
+          maxSelectable={1}
           selectable
           onSubmit={handleLifePotion}
+          submitText={['Continue', 'Save Player']}
         />
       </>
     );
@@ -63,14 +68,19 @@ const Witch: FC = () => {
         </Typography>
         {witchPotions[WitchPotionTypes.Death] && (
           <Typography>
-            Witch already used death potion. Click "Next" to continue.
+            Witch already used death potion. Click "Continue" to proceed.
           </Typography>
         )}
         <PlayerList
-          players={aliveAndNotRoles(players, [RoleIDs.Witch])}
-          maxSelectable={witchPotions[WitchPotionTypes.Death] ? 0 : 1}
+          players={
+            witchPotions[WitchPotionTypes.Death]
+              ? []
+              : aliveAndNotRoles(players, [RoleIDs.Witch])
+          }
+          maxSelectable={1}
           selectable
           onSubmit={handleDeathPotion}
+          submitText={['Continue', 'Kill Player']}
         />
       </>
     );

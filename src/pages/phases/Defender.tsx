@@ -33,6 +33,7 @@ const Defender: FC = () => {
         minSelectable={1}
         maxSelectable={1}
         onSubmit={onSubmit}
+        submitText="Protect Player"
       />
     </PageColor>
   );

@@ -26,6 +26,7 @@ const Cupid: FC = () => {
         selectable
         showPlayerInfo
         onSubmit={handleSubmit}
+        submitText="Marry Players"
       />
     </PageColor>
   );

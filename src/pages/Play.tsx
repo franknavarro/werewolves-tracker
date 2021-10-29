@@ -14,7 +14,7 @@ import Cupid from './phases/Cupid';
 import FortuneTeller from './phases/FortuneTeller';
 import Werewolves from './phases/Werewolves';
 import Witch from './phases/Witch';
-import NightSummary from './phases/NightSummary';
+import Summary from './phases/Summary';
 import Hunter from './phases/Hunter';
 import TownVote from './phases/TownVote';
 import Win from './phases/Win';
@@ -83,18 +83,22 @@ const Play: FC = () => {
       );
     case Phases.NightSummary:
       return (
-        <NightSummary
+        <Summary
           dead={diedTonight(players)}
           saved={savedTonight(players)}
           title="Night Summary"
           theme={RoleIDs.Werewolf}
-        />
+        >
+          <Typography component="h4" variant="h4">
+            Wake up town and reveal dead characters.
+          </Typography>
+        </Summary>
       );
     case Phases.Hunter:
       return <Hunter />;
     case Phases.HunterSummary:
       return (
-        <NightSummary
+        <Summary
           dead={diedTonightAtTheHandsOf(players, [RoleIDs.Hunter])}
           title="Hunter Summary"
           theme={RoleIDs.Hunter}
@@ -116,7 +120,7 @@ const Play: FC = () => {
           p.causeOfDeath === RoleIDs.Scapegoat,
       );
       return (
-        <NightSummary
+        <Summary
           dead={deadCharacters}
           saved={villageIdiotAlmostDied ? [villageIdiotAlmostDied] : []}
           title="Day Time Summary"
@@ -134,7 +138,7 @@ const Play: FC = () => {
               identity to the town and spare the idiot.
             </Typography>
           )}
-        </NightSummary>
+        </Summary>
       );
     case Phases.Win:
       if (winner) return <Win winner={winner} />;

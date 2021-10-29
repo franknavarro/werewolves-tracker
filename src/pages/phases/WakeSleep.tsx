@@ -1,4 +1,4 @@
-import { Button, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { FC } from 'react';
 import PageColor from '../../components/PageColor';
 import PlayerList from '../../components/PlayerList';
@@ -19,11 +19,12 @@ const WakeSleep: FC<WakeSleepProps> = ({ roles, children }) => {
       <Typography component="h1" variant="h3">
         {getRoleText(roles[0]).wakeUp}
       </Typography>
-      <PlayerList players={aliveAndIsRoles(players, roles)} />
       {children}
-      <Button color="secondary" variant="contained" onClick={() => nextPhase()}>
-        Go To Sleep
-      </Button>
+      <PlayerList
+        players={aliveAndIsRoles(players, roles)}
+        onSubmit={() => nextPhase()}
+        submitText="Go To Sleep"
+      />
     </PageColor>
   );
 };

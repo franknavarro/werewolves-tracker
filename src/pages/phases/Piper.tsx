@@ -30,6 +30,7 @@ const Piper: FC = () => {
         minSelectable={1}
         selectable
         onSubmit={handleSubmit}
+        submitText="Charm Players"
       />
     </PageColor>
   );

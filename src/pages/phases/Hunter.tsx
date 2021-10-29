@@ -25,6 +25,7 @@ const Hunter: FC = () => {
         minSelectable={1}
         selectable
         onSubmit={handleSubmit}
+        submitText="Kill Player"
       />
     </PageColor>
   );
