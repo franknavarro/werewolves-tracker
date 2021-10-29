@@ -163,7 +163,7 @@ export const ROLE_TEXT: RoleText = {
       'Moderator advice: even more powerful with players who know sign language. To be used only in large villagers. If the village is very large, you can even add in the Two Sisters!',
     ],
   },
-  [FutureRoleIDs.Fox]: {
+  [RoleIDs.Fox]: {
     displayName: 'Fox',
     wakeUp: 'Wake Up the Fox',
     description: [

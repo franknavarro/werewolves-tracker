@@ -128,7 +128,7 @@ const theme = createTheme({
     dark: '#ae9200',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.Fox]: {
+  [RoleIDs.Fox]: {
     main: '#474e63',
     light: '#737a91',
     dark: '#1e2639',
