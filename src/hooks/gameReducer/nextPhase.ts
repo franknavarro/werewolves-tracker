@@ -22,6 +22,7 @@ export enum Phases {
   Witch = 'Witch',
   Defender = 'Defender',
   TwoSisters = 'TwoSisters',
+  ThreeBrothers = 'ThreeBrothers',
   NightSummary = 'NightSummary',
   Hunter = 'Hunter',
   HunterSummary = 'HunterSummary',
@@ -47,6 +48,7 @@ export const PHASE_ORDER: PhaseInfo[] = [
   { id: Phases.Cupid, firstNightOnly: true, nightTime: true },
   { id: Phases.FortuneTeller, firstNightOnly: false, nightTime: true },
   { id: Phases.TwoSisters, firstNightOnly: false, nightTime: true },
+  { id: Phases.ThreeBrothers, firstNightOnly: false, nightTime: true },
   { id: Phases.Defender, firstNightOnly: false, nightTime: true },
   { id: Phases.Werewolves, firstNightOnly: false, nightTime: true },
   { id: Phases.BigBadWolf, firstNightOnly: false, nightTime: true },
@@ -181,8 +183,16 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
 
     case Phases.TwoSisters:
       const aliveSisters = aliveAndIsRoles(state.players, [RoleIDs.TwoSisters]);
-      console.log({ sisters: aliveSisters.length, night: state.nightCount });
       if (aliveSisters.length > 1 && state.nightCount % 2 === 0) {
+        return setPhase(state, phaseIndex);
+      }
+      return goToNextPhase();
+
+    case Phases.ThreeBrothers:
+      const aliveBrothers = aliveAndIsRoles(state.players, [
+        RoleIDs.ThreeBrothers,
+      ]);
+      if (aliveBrothers.length > 1 && state.nightCount % 2 === 0) {
         return setPhase(state, phaseIndex);
       }
       return goToNextPhase();

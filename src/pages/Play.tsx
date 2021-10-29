@@ -65,6 +65,14 @@ const Play: FC = () => {
       return <Piper />;
     case Phases.Charmed:
       return <CharmedPlayers />;
+    case Phases.ThreeBrothers:
+      return (
+        <WakeSleep roles={[RoleIDs.ThreeBrothers]}>
+          <Typography>
+            Allow the brothers to communicate for a short time.
+          </Typography>
+        </WakeSleep>
+      );
     case Phases.TwoSisters:
       return (
         <WakeSleep roles={[RoleIDs.TwoSisters]}>
