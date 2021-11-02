@@ -5,6 +5,7 @@ import PlayerList, { PlayerListProps } from '../../components/PlayerList';
 import { alive, selectedPlayers } from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
+import { getRoleText } from '../../text';
 
 const Hunter: FC = () => {
   const { killPlayers, players, nextPhase } = useGame();
@@ -14,10 +15,12 @@ const Hunter: FC = () => {
     nextPhase();
   };
 
+  const hunterText = getRoleText(RoleIDs.Hunter)?.actions?.[0];
+
   return (
     <PageColor color={RoleIDs.Hunter}>
       <Typography component="h1" variant="h3">
-        Who would the Hunter like to kill?
+        {hunterText?.primaryText}
       </Typography>
       <PlayerList
         players={alive(players)}
@@ -25,7 +28,7 @@ const Hunter: FC = () => {
         minSelectable={1}
         selectable
         onSubmit={handleSubmit}
-        submitText="Kill Player"
+        submitText={hunterText?.submitText}
       />
     </PageColor>
   );

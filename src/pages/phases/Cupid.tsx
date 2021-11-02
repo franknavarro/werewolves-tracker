@@ -1,34 +1,31 @@
-import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../../components/PageColor';
-import PlayerList, { PlayerListProps } from '../../components/PlayerList';
+import { PlayerListProps } from '../../components/PlayerList';
 import { selectedPlayers } from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
+import WakeSleep from './WakeSleep';
 
 const Cupid: FC = () => {
-  const { players, marryPlayers, nextPhase } = useGame();
+  const { players, marryPlayers } = useGame();
 
-  const handleSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
+  const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     marryPlayers(selectedPlayers(interactablePlayers));
-    nextPhase();
   };
 
   return (
-    <PageColor color={RoleIDs.Cupid}>
-      <Typography component="h1" variant="h3">
-        Who would Cupid like to marry?
-      </Typography>
-      <PlayerList
-        players={players}
-        maxSelectable={2}
-        minSelectable={2}
-        selectable
-        showPlayerInfo
-        onSubmit={handleSubmit}
-        submitText="Marry Players"
-      />
-    </PageColor>
+    <WakeSleep
+      roles={[RoleIDs.Cupid]}
+      actions={[
+        {
+          players: players,
+          maxSelectable: 2,
+          minSelectable: 2,
+          selectable: true,
+          showPlayerInfo: true,
+          onSubmit,
+        },
+      ]}
+    />
   );
 };
 

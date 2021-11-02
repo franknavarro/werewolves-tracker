@@ -1,7 +1,5 @@
-import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../../components/PageColor';
-import PlayerList, { PlayerListProps } from '../../components/PlayerList';
+import { PlayerListProps } from '../../components/PlayerList';
 import {
   aliveAndNotRoles,
   charmedPlayers,
@@ -9,30 +7,29 @@ import {
 } from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
+import WakeSleep from './WakeSleep';
 
 const Piper: FC = () => {
-  const { charmPlayers, players, nextPhase } = useGame();
+  const { charmPlayers, players } = useGame();
 
-  const handleSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
+  const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     charmPlayers(selectedPlayers(interactablePlayers));
-    nextPhase();
   };
 
   return (
-    <PageColor color={RoleIDs.Piper}>
-      <Typography component="h1" variant="h3">
-        Which 2 players would the piper like to charm?
-      </Typography>
-      <PlayerList
-        players={aliveAndNotRoles(players, [RoleIDs.Piper])}
-        disabledPlayers={charmedPlayers(players)}
-        maxSelectable={2}
-        minSelectable={1}
-        selectable
-        onSubmit={handleSubmit}
-        submitText="Charm Players"
-      />
-    </PageColor>
+    <WakeSleep
+      roles={[RoleIDs.Piper]}
+      actions={[
+        {
+          players: aliveAndNotRoles(players, [RoleIDs.Piper]),
+          disabledPlayers: charmedPlayers(players),
+          maxSelectable: 2,
+          minSelectable: 1,
+          selectable: true,
+          onSubmit,
+        },
+      ]}
+    />
   );
 };
 

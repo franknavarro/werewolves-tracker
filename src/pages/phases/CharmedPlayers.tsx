@@ -1,29 +1,25 @@
-import { Typography } from '@material-ui/core';
 import { FC } from 'react';
-import PageColor from '../../components/PageColor';
-import PlayerList, { PlayerListProps } from '../../components/PlayerList';
 import { aliveAndCharmed } from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
+import WakeSleep from './WakeSleep';
 
 const CharmedPlayers: FC = () => {
-  const { players, nextPhase } = useGame();
-
-  const handleSubmit: PlayerListProps['onSubmit'] = () => {
-    nextPhase();
-  };
+  const { players } = useGame();
 
   return (
-    <PageColor color={RoleIDs.Piper}>
-      <Typography component="h1" variant="h3">
-        Wake up the charmed players below.
-      </Typography>
-      <PlayerList
-        players={aliveAndCharmed(players)}
-        onSubmit={handleSubmit}
-        submitText="Go To Sleep"
-      />
-    </PageColor>
+    <WakeSleep
+      roles={[RoleIDs.Piper]}
+      wakePlayers={aliveAndCharmed(players)}
+      wakeText="Wake up the charmed players below."
+      actions={[
+        {
+          primaryText: '',
+          secondaryText: '',
+          submitText: 'Go to sleep',
+        },
+      ]}
+    />
   );
 };
 

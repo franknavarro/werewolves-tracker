@@ -5,16 +5,29 @@ import {
   FutureRoleIDs,
 } from '../hooks/roles';
 
-type RoleText = RoleIDsWithType<{
+interface ActionText {
+  primaryText: string;
+  submitText: string | string[];
+  secondaryText?: string;
+}
+
+export interface RoleText {
   displayName: string;
   description: string[];
-  wakeUp: string;
-}>;
+  wakeUp?: string;
+  actions?: ActionText[];
+}
 
-export const ROLE_TEXT: RoleText = {
+export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.Defender]: {
     displayName: 'Defender',
     wakeUp: 'Wake Up the Defeneder',
+    actions: [
+      {
+        primaryText: 'Who is the Defender protecting tonight?',
+        submitText: 'Protect Player',
+      },
+    ],
     description: [
       'This character can save the Villagers from the bite of the Werewolves...',
       'Each night the Defender is called before the Werewolves.',
@@ -25,6 +38,14 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.BigBadWolf]: {
     displayName: 'Big Bad Wolf',
     wakeUp: 'Wake Up the Big Bad Wolf',
+    actions: [
+      {
+        primaryText: 'Who would the Big Bad Wolf like to kill?',
+        secondaryText:
+          'No characters remaining for the Big Bad Wolf to kill. Click "Continue"',
+        submitText: 'Kill Player',
+      },
+    ],
     description: [
       "In this town, little piggies are not the only ones to fear the Big Bad Wolf. He's enormous and his appetite is gigantic. Because of him, entire villages have been wiped from the map!",
       'Each night he wakes up and devours with the other Werewolves. But as long as no Werewolf, Wild Child or Wolf Hound has been eliminated, he wakes up a second time and devours a second victim.',
@@ -34,6 +55,14 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.Werewolf]: {
     displayName: 'Simple Werewolf',
     wakeUp: 'Wake Up the Werewolves',
+    actions: [
+      {
+        primaryText: 'Who would the werewolves like to kill?',
+        secondaryText:
+          'No characters remaining for the werewolves to kill. Click "Continue"',
+        submitText: 'Kill Player',
+      },
+    ],
     description: [
       'Each night they agree to devour one Villager.',
       'During the day they try to hide their nocturnal identity to avoid mob justice.',
@@ -42,7 +71,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [RoleIDs.Villager]: {
     displayName: 'Simple Villager',
-    wakeUp: 'Wake Up the Villagers',
     description: [
       'Has no special skill.',
       'Their only weapons are the ability to analyze behavior to identify the Werewolves, and the strength of their conviction to prevent the execution of the innocents like themselves.',
@@ -51,13 +79,24 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.FortuneTeller]: {
     displayName: 'Fortune Teller',
     wakeUp: 'Wake Up the Fortune Teller',
+    actions: [
+      {
+        primaryText: 'Whose role would the fortune teller like to see?',
+        submitText: 'Go to sleep',
+      },
+    ],
     description: [
       'Each night, she sees the card of a player of her choice. She must help the other Villagers, but must remain discreet in order not to be unmasked by the Werewolves.',
     ],
   },
   [RoleIDs.Hunter]: {
     displayName: 'Hunter',
-    wakeUp: 'Wake Up the Hunter',
+    actions: [
+      {
+        primaryText: 'Who would the Hunter like to kill?',
+        submitText: 'Kill Player',
+      },
+    ],
     description: [
       'If dies, the Hunter must strike back beofre giving up the ghost, by immediately eliminating any player of their choice.',
       'Special case: If the Hunter is in Love with an eliminated player, before leaving the game the Hunter must immediately eliminate another player of their choice. This can create a game wehre there are no players left alive. In that case, none of the sides can claim victory.',
@@ -66,6 +105,12 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.Cupid]: {
     displayName: 'Cupid',
     wakeUp: 'Wake Up Cupid',
+    actions: [
+      {
+        primaryText: 'Who would cupid like to marry?',
+        submitText: 'Marry players',
+      },
+    ],
     description: [
       'By shooting his famous magic arrows, Cupid has the power to make two people fall in love forever.',
       'The first night (preliminary turn), he chooses the two players who are in love. Cupid can, if he so wishes, choose himself as one of the two lovers.',
@@ -77,6 +122,21 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.Witch]: {
     displayName: 'Witch',
     wakeUp: 'Wake Up the Witch',
+    actions: [
+      {
+        primaryText:
+          'Would the witch like to save any of the follwoing player?',
+        secondaryText:
+          'Witch already used life potion. Click "Continue" to proceed.',
+        submitText: ['Continue', 'Save Player'],
+      },
+      {
+        primaryText: 'Would the witch like to kill any one?',
+        secondaryText:
+          'Witch already used death potion. Click "Continue" to proceed.',
+        submitText: ['Continue', 'Kill Player'],
+      },
+    ],
     description: [
       'She knows how to brew 2 extremely powerful potions: a healing potion, ot resurrect the player devoured by the Werewolves, and a poison potion, used at night to eliminate a player.',
       'The can use each potion only once per game. She can use both of her potions in the same night.',
@@ -86,7 +146,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [RoleIDs.LittleGirl]: {
     displayName: 'Little Girl',
-    wakeUp: 'Wake Up the Little Girl',
     description: [
       "The Litter Girl can, by opening her eyes a bit, spy on the Werewolves while they're awake.",
       "If she's caught by one of the Werewolves, she can immediately by devoured (in silence) instead of the chosen victim.",
@@ -95,7 +154,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.AccursedWolfFather]: {
     displayName: 'Accursed Wolf-Father',
-    wakeUp: 'Wake Up the Accursed Wolf-Father',
     description: [
       'The first Werewolf in our lands, the father of their fathers, had two powers: the first was the ability to spread his curse through a special bite and the second was the ability to flee from this world by sleeping for a few centuries. Thankfully for our recent ancestors, he had been fast asleep for some time.',
       "The authors of this work would like to wish good luck to today's villagers and bring to their attention that the Accursed Wolf-father has just woken up from a long sleep, and that he's very hungry!",
@@ -106,6 +164,12 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.WhiteWerewolf]: {
     displayName: 'White Werewolf',
     wakeUp: 'Wake Up the White Werewolf',
+    actions: [
+      {
+        primaryText: 'Who would the White Werewolf like to kill?',
+        submitText: 'Kill Player',
+      },
+    ],
     description: [
       "This thoroughly miscreant character hates the Werewolves as much as he hates the villagers!  In a recent work, titled 'The Village,' it is said that a strange mutation took place amidst the very lycanthrope population.",
       'Each night, he wakes up and devours with the other Werewolves.',
@@ -116,7 +180,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Elder]: {
     displayName: 'Elder',
-    wakeUp: 'Wake Up the Elder',
     description: [
       "He has victoriously gone through all of life's terrible trials, and has gained an uncommon resistance!  The Werewolves will have to try twice to devour him.",
       "The first time the Elder is devoured by the Werewolves, he survives; and the Moderator does not flip over his card. The Elder is only eliminated when he is devoured for the second time. The village's vote, the Witch's poison potion, the Hunter's shot, and the Barber's razor will all kill him on the first time.  But, despairing from having killed off such a fount of knowledge, the Villagers all lose their special powers until the end of the game.",
@@ -126,7 +189,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [RoleIDs.Scapegoat]: {
     displayName: 'Scapegoat',
-    wakeUp: 'Wake Up the Scapegoat',
     description: [
       "It's sad to say, but in Miller's Hollow, when something doesn't go right, it's always him who unjustly suffers the consequences.",
       "If the village's vote ends in a tie, it's the Scapegoat who is eliminated instead of the tied characters. It is up to him to work carefully to avoid such a sad fate. If the Scapegoat is eliminated, he has one last task to complete - he'll chose who is permitted to vote or not on the next day.",
@@ -135,7 +197,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [RoleIDs.VillageIdiot]: {
     displayName: 'Village Idiot',
-    wakeUp: 'Wake Up the Village Idiot',
     description: [
       "What is a village without an Idiot? He does pretty much nothing important, but he's so charming that no one would want to hurt him...",
       'If the village votes against him, the Idiot flips his card over. At that moment the Villagers understand their mistake and immediately let him be. From now on, he continues to play, but may no longer vote. As what would the vote of an Idiot be worth...',
@@ -146,6 +207,13 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.TwoSisters]: {
     displayName: 'Two Sisters',
     wakeUp: 'Wake Up the Two Sisters',
+    actions: [
+      {
+        primaryText: 'Sisters can communicate',
+        secondaryText: 'Allow the sisters to communicate for a short time.',
+        submitText: 'Go to sleep',
+      },
+    ],
     description: [
       "Some of the village's inhabitants confuse them when they meet one of the Two Sisters around the corner of a country road.",
       "The smile one the young woman's face after one's tried his chance at the first name game is difficult to decipher: is the young woman happy to have been identified, or is she amused by the mistake? In all cases, the Two Sisters get along like the fingers of the hand or the hair in a lock. It's certainly encouraging to have someone close you can trust in these uncertain times!",
@@ -157,6 +225,13 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.ThreeBrothers]: {
     displayName: 'Three Brothers',
     wakeUp: 'Wake Up the Three Brothers',
+    actions: [
+      {
+        primaryText: 'Brothers can communicate',
+        secondaryText: 'Allow the brothers to communicate for a short time.',
+        submitText: 'Go to sleep',
+      },
+    ],
     description: [
       'The entire village rings out with the joyous sound of their voice when they return home after working in the field. During the debates, a simple glance between them allows them to take a good decision as to the future of the village.',
       "The first night, when called by the Moderator, they wake up together and recognize each other. For experienced players, during the game, once in a while (every other turn or at the Moderator's discretion), they wake up again and, quickly and in silence, agree on the decisions to be taken to save the village.",
@@ -166,6 +241,19 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.Fox]: {
     displayName: 'Fox',
     wakeUp: 'Wake Up the Fox',
+    actions: [
+      {
+        primaryText: 'Which 3 players is the Fox pointing towards?',
+        secondaryText:
+          'Before continuing reveal to fox wether any of the selected players is a werewolf or the fox may choose to pass in which case "Continue".',
+        submitText: ['Continue', 'Reveal Werewolf'],
+      },
+      {
+        primaryText: 'Fox lost ability',
+        secondaryText: 'Click "Continue" to proceed.',
+        submitText: 'Continue',
+      },
+    ],
     description: [
       "In Miller's Hollow, everyone appreciates the flair of this vivacious yet discreet character, except maybe for the chickens and especially the Werewolves.",
       'At night, when called by the moderator, the Fox can choose a group of three players neighbouring each other, of whom he points the central player. If in this group is at least one Werewolf, then the Moderator makes an affirmative sign to the Fox. In that case, the Fox will be able to use his power again on another night. If there are not Werewolves in the chosen group, then the Fox permanently loses his power; however, he has important information, clearing the names of three players in one fell swoop.',
@@ -175,7 +263,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.BearTamer]: {
     displayName: 'Bear Tamer',
-    wakeUp: 'Wake Up the Bear Tamer',
     description: [
       "Ah! How sweet it is, in my memory, the sound of chains slipping onto the cobblestones of the 'Three Road' plaza, accompanied by the grunting of Ursus. Ah! How long ago it was that Titan, the Bear Tamer, would lead his companion in a ballet so gracious that we'd cry every summer in Miller's Hollow. Ursus even had the oh-so-precious ability to detect lycanthropes hidden near him.",
       "Each morning, right after the revelation of any possible nocturnal victims, if at least one Werewolf is or ends up directly next to the Bear Tamer, then the Moderator grunts to let the players know that the Tamer's bear has smelled danger.",
@@ -185,7 +272,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.StutteringJudge]: {
     displayName: 'Stuttering Judge',
-    wakeUp: 'Wake Up the Stuttering Judge',
     description: [
       "The miller's youngest son was gifted for studies and dreamed of becoming a lawyer.",
       "As his father had managed to make some dough, he sent him to study law in the nearby city. A slight pronounciation defect kept the young man from having the coveted prestige of being the defender of the widow and the orphan. However, he returned to the village of Miller's Hollow haloed with the only slightly less prestigious title of wandering judge.",
@@ -195,7 +281,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.KnightRustySword]: {
     displayName: 'Knight with the Rusty Sword',
-    wakeUp: 'Wake Up the Knight with the Rusty Sword',
     description: [
       "'Don Sneezy' is a very old retired knight.  He's rather tired by a life of questing throughout the world and doesn't maintain his noble tool very well any more. Rust has slowly started to settle on his protector's dull edge, but he'll never leave her for another. He still sleeps with her every evening these days: intruders beware!",
       "If the Knight is devoured, he's eliminated, but one of the Werewolves is contaminated by the rusted sword. Among the Werewolves guilty of that elimination, the first Werewolf to the left of the Knight with the Rusty Sword will be eliminated on the next night. This elimination due to disease will be revealed by the Moderator in the morning following the Werewolfs disappearance.",
@@ -205,7 +290,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Thief]: {
     displayName: 'Thief',
-    wakeUp: 'Wake Up the Thief',
     description: [
       'If the Thief is in the mix, two extra Simple Villager cards must be added to those already chosen.',
       "After the characters are dealt, the two cards which haven't been dealt are placed in the middle of the table, face-down. On the first night, the Thief will be able to take a look at these two cards, and exchange his card for one of the two others. If these cards are both Werewolves, he must exchange his card for one of these two Werewolves. He'll play that character from now on, until the end of the game.",
@@ -213,7 +297,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.DevotedServant]: {
     displayName: 'Devoted Servant',
-    wakeUp: 'Wake Up the Devoted Servant',
     description: [
       'Who could dream of a better servant than one willing to give up her life for that of her masters?',
       "Don't rejoice too fast, as the devouring ambition within her could spell the end of the village!",
@@ -233,7 +316,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Actor]: {
     displayName: 'Actor',
-    wakeUp: 'Wake Up the Actor',
     description: [
       'A tireless wanderer, he stopped at the village to give a few shows before going south to spend the winter in warmer climates.',
       'As gifted with jokes and comedies as he is to interpret the great tragedies, he has all of the talent needed to perform the vast catalog of national theater.',
@@ -245,7 +327,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.WildChild]: {
     displayName: 'Wild Child',
-    wakeUp: 'Wake Up the Wild Child',
     description: [
       "Abandoned in the woods by his parents at a young age, he was raised by wolves.  As soon as he learned how to walk on all fours, the Wild Child began to wander around Miller's Hollow.",
       "One day, fascinated by an inhabitant of the village who was walking upright with grace and presence, he made them his secret role model. He then decided to integrate himself into the community of Miller's Hollow and entered, worried, in the village. The community was moved by his frailty, adopted him, and welcomed him in their fold.",
@@ -259,7 +340,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Wolfhound]: {
     displayName: 'Wolfhound',
-    wakeUp: 'Wake Up the Wolfhound',
     description: [
       "All dogs know in the depths of their soul that their ancestors were wolves and that it's & Mankind who has kept them in the state of childishness and fear, the faithful and generous companions.  In any case, only the Wolf-hound can decide if he'll obey his human and civilized master or if he'll listen to the call of wild nature buried within him.",
       "The first night, he chooses if he wants to be a Simple Villager or Werewolf. If he wishes to be a Werewolf, he'll wake up with them each night and will from then on participate in the choice of the victim to be devoured. Otherwise, he'll keep his eyes closed and will win with the villagers.",
@@ -269,7 +349,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [RoleIDs.Angel]: {
     displayName: 'Angel',
-    wakeUp: 'Wake Up the Angel',
     description: [
       "The muddy life of a village infested with evil creatures repulses him; he wishes to believe he's the victim of a terrible nightmare, in order to finally wake up in his comfortable bed.",
       "When the Angel is in play, the game always begins with the village's debate followed by an elimination vote, and then the first night. If the Angel manages to attract the discriminatory vote of the villagers or the devouring vindictiveness of the lycanthropes to be eliminated on the first turn, he will then be able to leave the nightmare a winner and win the game.",
@@ -281,6 +360,12 @@ export const ROLE_TEXT: RoleText = {
   [RoleIDs.Piper]: {
     displayName: 'Piper',
     wakeUp: 'Wake Up the Piper',
+    actions: [
+      {
+        primaryText: 'Which 2 players would the piper like to charm?',
+        submitText: 'Charm Players',
+      },
+    ],
     description: [
       "Ignominously chased out of the village, he's come back years later under the cover of a false identity to exert his terrible revenge.",
       "Each night, at the Moderator's call, the Piper charms 2 new players. As soon as there are only charmed players left, the Piper wins the game. (Even if this happens due to a vote from the Village, or because of the Werewolves).",
@@ -291,7 +376,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.PrejudicedManipulator]: {
     displayName: 'Prejudice Manipulator',
-    wakeUp: 'Wake Up the Prejudice Manipulator',
     description: [
       'His goal: to fulfill his own objective, no matter what his side is.',
       "From his youngest age, and maybe because of a lack of love or interest given by those close to him, this poor soul didn't like himself at all. Growing up, he transferred this hatred to all those who are foreign to him.",
@@ -305,7 +389,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Pyromaniac]: {
     displayName: 'Pyromaniac',
-    wakeUp: 'Wake Up the Pyromaniac',
     description: [
       "As indicated by his name, this character is hampered by an enormous fault. Let's hope he'll be able to keep his incendiary vice in check and take care of the right house at the right time, in order to help the threatened village!",
       "When his role is called, the Pyromaniac can, once per game, choose a building on which the Moderator will place the 'fire' tile.",
@@ -316,7 +399,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Scandalmonger]: {
     displayName: 'Scandalmonger',
-    wakeUp: 'Wake Up the Scandalmonger',
     description: [
       'This individual loves to secretly make their guilty suspicions known, by posting, right before dawn, an anonymous poster full of accusations against the concerned player. Its impact is certain despite the lack of courage of our bird!',
       "At the end of each night, after the Werewolves have gone back to sleep, when his role is called, the Scandalmonger can choose a player he suspects. The Moderator then places the 'anonymous accusation poster' in front of the chosen player's building.  This player will automatically have 2 extra votes against them during the next vote. The Scandalmonger can place the 'anonymous accusation poster' on the Pub, even if the Barkeep hasn't taken part in an elimination with his vote.  The Scandalmonger cannot choose any Vagabond.",
@@ -324,7 +406,6 @@ export const ROLE_TEXT: RoleText = {
   },
   [FutureRoleIDs.Gypsy]: {
     displayName: 'Gypsy',
-    wakeUp: 'Wake Up the Gypsy',
     description: [
       "Esmeralda's sister, who was simply called the Gyspy, knew the ways of the Great Beyond.  She simply had. with no artifice or unguent, to concentrate and gaze upon the sky during the new moon to communicate with the souls of the departed.",
       "At the beginning of the game, the Moderator takes the 5 Spiritualism cards from 'New Moon' and keeps them in hand.",
