@@ -65,7 +65,7 @@ const SVG_PATHS: SvgPaths = {
   [RoleIDs.Fox]: FoxIcon,
   [FutureRoleIDs.BearTamer]: BearTamerIcon,
   [FutureRoleIDs.StutteringJudge]: StutteringJudgeIcon,
-  [FutureRoleIDs.KnightRustySword]: KnightWithTheRustySwordIcon,
+  [RoleIDs.KnightRustySword]: KnightWithTheRustySwordIcon,
   [FutureRoleIDs.Thief]: ThiefIcon,
   [FutureRoleIDs.DevotedServant]: DevotedServantIcon,
   [FutureRoleIDs.WildChild]: WildChildIcon,

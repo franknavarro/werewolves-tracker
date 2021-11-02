@@ -16,6 +16,7 @@ export enum RoleIDs {
   ThreeBrothers = 'three-brothers',
   WhiteWerewolf = 'white-werewolf',
   Fox = 'fox',
+  KnightRustySword = 'knight-with-the-rusty-sword',
 }
 
 export enum FutureRoleIDs {
@@ -23,7 +24,6 @@ export enum FutureRoleIDs {
   Elder = 'elder',
   BearTamer = 'bear-tamer',
   StutteringJudge = 'stuttering-judge',
-  KnightRustySword = 'knight-with-the-rusty-sword',
   Thief = 'theif',
   DevotedServant = 'devoted-servant',
   Actor = 'actor',
@@ -141,6 +141,11 @@ export const ROLES: Roles = {
     amount: 1,
     amountChangable: false,
   },
+  [RoleIDs.KnightRustySword]: {
+    classification: Classifications.Villager,
+    amount: 1,
+    amountChangable: false,
+  },
   [RoleIDs.Villager]: {
     classification: Classifications.Villager,
     amount: 9,
@@ -168,11 +173,6 @@ export const FUTURE_ROLES: FutureRoles = {
     amountChangable: false,
   },
   [FutureRoleIDs.StutteringJudge]: {
-    classification: Classifications.Villager,
-    amount: 1,
-    amountChangable: false,
-  },
-  [FutureRoleIDs.KnightRustySword]: {
     classification: Classifications.Villager,
     amount: 1,
     amountChangable: false,

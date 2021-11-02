@@ -125,7 +125,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
     actions: [
       {
         primaryText:
-          'Would the witch like to save any of the follwoing player?',
+          'Would the witch like to save any of the following players?',
         secondaryText:
           'Witch already used life potion. Click "Continue" to proceed.',
         submitText: ['Continue', 'Save Player'],
@@ -279,7 +279,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
       'Moderator advice: always be attentive to the behavior of the Stuttering Judge during the votes, in order not to miss his distinctive sign.',
     ],
   },
-  [FutureRoleIDs.KnightRustySword]: {
+  [RoleIDs.KnightRustySword]: {
     displayName: 'Knight with the Rusty Sword',
     description: [
       "'Don Sneezy' is a very old retired knight.  He's rather tired by a life of questing throughout the world and doesn't maintain his noble tool very well any more. Rust has slowly started to settle on his protector's dull edge, but he'll never leave her for another. He still sleeps with her every evening these days: intruders beware!",

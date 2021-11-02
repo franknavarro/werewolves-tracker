@@ -146,7 +146,7 @@ const theme = createTheme({
     dark: '#5aa187',
     contrastText: '#000000',
   },
-  [FutureRoleIDs.KnightRustySword]: {
+  [RoleIDs.KnightRustySword]: {
     main: '#ab5731',
     light: '#e1855c',
     dark: '#772b07',
