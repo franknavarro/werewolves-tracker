@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Player, PlayerID } from './useGame';
 
 export interface InteractablePlayer {
@@ -7,10 +7,18 @@ export interface InteractablePlayer {
   value: number;
 }
 
+const getInteractablePlayers = (players: Player[]): InteractablePlayer[] =>
+  players.map((player) => ({ id: player.id, value: 0, selected: false }));
+
 export const useInteractablePlayers = (players: Player[]) => {
   const [interactablePlayers, setInteractablePlayers] = useState<
     InteractablePlayer[]
-  >(players.map((player) => ({ id: player.id, value: 0, selected: false })));
+  >(getInteractablePlayers(players));
+
+  // Reset interactablePlayers if players change.
+  useEffect(() => {
+    setInteractablePlayers(getInteractablePlayers(players));
+  }, [players]);
 
   const setCounterForID = useCallback((id: PlayerID, value: number) => {
     setInteractablePlayers((prevCounters) => {
