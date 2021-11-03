@@ -6,7 +6,7 @@ import { useGame } from '../../hooks/useGame';
 import WakeSleep from './WakeSleep';
 
 const Werewolves: FC = () => {
-  const { killPlayers, players } = useGame();
+  const { killPlayers, ...gameState } = useGame();
 
   const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     killPlayers(selectedPlayers(interactablePlayers), RoleIDs.WhiteWerewolf);
@@ -14,10 +14,10 @@ const Werewolves: FC = () => {
 
   return (
     <WakeSleep
-      roles={[RoleIDs.BigBadWolf]}
+      roles={[RoleIDs.WhiteWerewolf]}
       actions={[
         {
-          players: aliveAndNotRoles(players, [RoleIDs.WhiteWerewolf]),
+          players: aliveAndNotRoles(gameState, [RoleIDs.WhiteWerewolf]),
           maxSelectable: 1,
           minSelectable: 1,
           selectable: true,

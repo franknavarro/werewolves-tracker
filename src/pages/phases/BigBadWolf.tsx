@@ -7,13 +7,13 @@ import WakeSleep from './WakeSleep';
 import { WEREWOLVES } from './Werewolves';
 
 const BigBadWolf: FC = () => {
-  const { killPlayers, players } = useGame();
+  const { killPlayers, ...gameState } = useGame();
 
   const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     killPlayers(selectedPlayers(interactablePlayers), RoleIDs.BigBadWolf);
   };
 
-  const killablePlayers = aliveAndNotRoles(players, WEREWOLVES);
+  const killablePlayers = aliveAndNotRoles(gameState, WEREWOLVES);
 
   return (
     <WakeSleep

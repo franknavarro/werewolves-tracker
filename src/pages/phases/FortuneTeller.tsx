@@ -5,14 +5,14 @@ import { useGame } from '../../hooks/useGame';
 import WakeSleep from './WakeSleep';
 
 const FortuneTeller: FC = () => {
-  const { players } = useGame();
+  const gameState = useGame();
 
   return (
     <WakeSleep
       roles={[RoleIDs.FortuneTeller]}
       actions={[
         {
-          players: aliveAndNotRoles(players, [RoleIDs.FortuneTeller]),
+          players: aliveAndNotRoles(gameState, [RoleIDs.FortuneTeller]),
           showPlayerInfo: true,
         },
       ]}

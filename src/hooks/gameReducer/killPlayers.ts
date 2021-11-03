@@ -10,8 +10,12 @@ export type KillPlayersAction = {
   cause: RoleIDs;
 };
 
-const killPlayer = (player: Player, causeOfDeath: RoleIDs) => {
-  return { ...player, causeOfDeath, diedTonight: true };
+const killPlayer = (
+  player: Player,
+  causeOfDeath: RoleIDs,
+  nightDied: number,
+) => {
+  return { ...player, causeOfDeath, nightDied };
 };
 
 export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
@@ -40,7 +44,7 @@ export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
       }
 
       if (player.isInLove) brokenHeartDeath = true;
-      return killPlayer(player, action.cause);
+      return killPlayer(player, action.cause, state.nightCount);
     }
     return player;
   });
@@ -48,7 +52,7 @@ export const killPlayers: Reducer<KillPlayersAction> = (state, action) => {
   if (brokenHeartDeath) {
     playersWithDeath = playersWithDeath.map((player) => {
       if (player.isInLove && !player.causeOfDeath) {
-        return killPlayer(player, RoleIDs.Cupid);
+        return killPlayer(player, RoleIDs.Cupid, state.nightCount);
       }
       return player;
     });

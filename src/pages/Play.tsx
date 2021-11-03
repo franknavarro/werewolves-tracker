@@ -28,8 +28,8 @@ import CharmedPlayers from './phases/CharmedPlayers';
 import WakeSleep from './phases/WakeSleep';
 
 const Play: FC = () => {
-  const state = useGame();
-  const { players, roles, winner, phaseIndex } = state;
+  const gameState = useGame();
+  const { players, roles, winner, phaseIndex } = gameState;
 
   useEffect(() => {
     window.scroll({
@@ -78,7 +78,7 @@ const Play: FC = () => {
     case Phases.NightSummary:
       return (
         <Summary
-          dead={diedTonight(players)}
+          dead={diedTonight(gameState)}
           saved={savedTonight(players)}
           title="Night Summary"
           theme={RoleIDs.Werewolf}
@@ -93,7 +93,7 @@ const Play: FC = () => {
     case Phases.HunterSummary:
       return (
         <Summary
-          dead={diedTonightAtTheHandsOf(players, [RoleIDs.Hunter])}
+          dead={diedTonightAtTheHandsOf(gameState, [RoleIDs.Hunter])}
           title="Hunter Summary"
           theme={RoleIDs.Hunter}
         />
@@ -104,7 +104,7 @@ const Play: FC = () => {
       const villageIdiotAlmostDied = players.find(
         (p) => p.savedBy === RoleIDs.VillageIdiot,
       );
-      const deadCharacters = diedTonightAtTheHandsOf(players, [
+      const deadCharacters = diedTonightAtTheHandsOf(gameState, [
         RoleIDs.Villager,
         RoleIDs.Scapegoat,
       ]);

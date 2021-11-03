@@ -11,7 +11,7 @@ export interface Player {
   id: PlayerID;
   name: string;
   causeOfDeath: RoleIDs | null;
-  diedTonight: boolean;
+  nightDied: number | null;
   savedBy: RoleIDs | null;
   defended: boolean;
   role: Role;

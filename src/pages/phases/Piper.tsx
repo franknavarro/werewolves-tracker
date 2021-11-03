@@ -10,7 +10,7 @@ import { useGame } from '../../hooks/useGame';
 import WakeSleep from './WakeSleep';
 
 const Piper: FC = () => {
-  const { charmPlayers, players } = useGame();
+  const { charmPlayers, ...gameState } = useGame();
 
   const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     charmPlayers(selectedPlayers(interactablePlayers));
@@ -21,8 +21,8 @@ const Piper: FC = () => {
       roles={[RoleIDs.Piper]}
       actions={[
         {
-          players: aliveAndNotRoles(players, [RoleIDs.Piper]),
-          disabledPlayers: charmedPlayers(players),
+          players: aliveAndNotRoles(gameState, [RoleIDs.Piper]),
+          disabledPlayers: charmedPlayers(gameState),
           maxSelectable: 2,
           minSelectable: 1,
           selectable: true,

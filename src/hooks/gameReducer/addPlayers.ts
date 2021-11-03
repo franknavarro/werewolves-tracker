@@ -15,7 +15,7 @@ export const addPlayers: Reducer<AddPlayersAction> = (state, action) => {
       ...player,
       id: index,
       causeOfDeath: null,
-      diedTonight: false,
+      nightDied: null,
       defended: false,
       savedBy: null,
       isInLove: false,

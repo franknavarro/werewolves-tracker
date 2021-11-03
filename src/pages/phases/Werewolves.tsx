@@ -13,13 +13,13 @@ export const WEREWOLVES = [
 ];
 
 const Werewolves: FC = () => {
-  const { killPlayers, players } = useGame();
+  const { killPlayers, ...gameState } = useGame();
 
   const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     killPlayers(selectedPlayers(interactablePlayers), RoleIDs.Werewolf);
   };
 
-  const killablePlayers = aliveAndNotRoles(players, WEREWOLVES);
+  const killablePlayers = aliveAndNotRoles(gameState, WEREWOLVES);
 
   return (
     <WakeSleep

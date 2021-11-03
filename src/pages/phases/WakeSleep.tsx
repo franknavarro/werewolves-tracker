@@ -26,7 +26,7 @@ const WakeSleep: FC<WakeSleepProps> = ({
   wakePlayers,
   wakeText,
 }) => {
-  const { players, nextPhase } = useGame();
+  const { nextPhase, ...gameState } = useGame();
   const [actionIndex, setAction] = useState(0);
 
   const roleText = getRoleText(roles[0]);
@@ -54,7 +54,7 @@ const WakeSleep: FC<WakeSleepProps> = ({
   };
 
   const wakeTextPrimary = wakeText || roleText?.wakeUp;
-  const wakePlayersPrimary = wakePlayers || aliveAndIsRoles(players, roles);
+  const wakePlayersPrimary = wakePlayers || aliveAndIsRoles(gameState, roles);
 
   const actionPrimaryText = action?.primaryText ?? actionText?.primaryText;
   const actionSecondaryText =

@@ -7,7 +7,8 @@ import { getRoleText } from '../../text';
 import WakeSleep from './WakeSleep';
 
 const Fox: FC = () => {
-  const { players, foxActive, foxFoundWerewolves } = useGame();
+  const gameState = useGame();
+  const { foxActive, foxFoundWerewolves } = gameState;
 
   const onSubmit: PlayerListProps['onSubmit'] = (interactablePlayers) => {
     if (foxActive) {
@@ -24,7 +25,7 @@ const Fox: FC = () => {
       actions={[
         {
           ...foxText?.[foxTextIndex],
-          players: foxActive ? aliveAndNotRoles(players, [RoleIDs.Fox]) : [],
+          players: foxActive ? aliveAndNotRoles(gameState, [RoleIDs.Fox]) : [],
           maxSelectable: 3,
           selectable: true,
           onSubmit,

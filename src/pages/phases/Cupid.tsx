@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { PlayerListProps } from '../../components/PlayerList';
-import { selectedPlayers } from '../../helpers/filterPlayers';
+import { alive, selectedPlayers } from '../../helpers/filterPlayers';
 import { RoleIDs } from '../../hooks/roles';
 import { useGame } from '../../hooks/useGame';
 import WakeSleep from './WakeSleep';
@@ -17,7 +17,7 @@ const Cupid: FC = () => {
       roles={[RoleIDs.Cupid]}
       actions={[
         {
-          players: players,
+          players: alive(players),
           maxSelectable: 2,
           minSelectable: 2,
           selectable: true,

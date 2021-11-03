@@ -10,7 +10,8 @@ import { useGame, WitchPotionTypes } from '../../hooks/useGame';
 import WakeSleep from './WakeSleep';
 
 const Witch: FC = () => {
-  const { players, witchUsedPotion, witchPotions } = useGame();
+  const gameState = useGame();
+  const { witchUsedPotion, witchPotions } = useGame();
 
   const handleLifePotion: PlayerListProps['onSubmit'] = (
     interactablePlayers,
@@ -29,7 +30,6 @@ const Witch: FC = () => {
       selectedPlayers(interactablePlayers),
     );
   };
-  console.log({ witchPotions, players });
 
   return (
     <WakeSleep
@@ -38,7 +38,7 @@ const Witch: FC = () => {
         {
           players: witchPotions[WitchPotionTypes.Life]
             ? []
-            : tonightsWerewolfVictim(players),
+            : tonightsWerewolfVictim(gameState),
           maxSelectable: 1,
           selectable: true,
           onSubmit: handleLifePotion,
@@ -47,7 +47,7 @@ const Witch: FC = () => {
         {
           players: witchPotions[WitchPotionTypes.Death]
             ? []
-            : aliveAndNotRoles(players, [RoleIDs.Witch]),
+            : aliveAndNotRoles(gameState, [RoleIDs.Witch]),
           maxSelectable: 1,
           selectable: true,
           onSubmit: handleDeathPotion,

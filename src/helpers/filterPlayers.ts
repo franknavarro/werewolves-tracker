@@ -1,6 +1,6 @@
 import { AllRoleIDs, RoleIDs } from '../hooks/roles';
 import { InteractablePlayer } from '../hooks/useInteractablePlayers';
-import { Player, PlayerID } from '../hooks/useGame';
+import { GameState, Player, PlayerID } from '../hooks/useGame';
 
 export const alive = (players: Player[]) => {
   return players.filter((player) => {
@@ -9,41 +9,43 @@ export const alive = (players: Player[]) => {
 };
 
 export const aliveAndIsRoles = (
-  players: Player[],
+  state: GameState,
   roles: AllRoleIDs[],
 ): Player[] => {
-  return players.filter((player) => {
+  return state.players.filter((player) => {
     return (
       roles.includes(player.role.id) &&
-      (player.causeOfDeath === null || player.diedTonight)
+      (player.causeOfDeath === null || player.nightDied === state.nightCount)
     );
   });
 };
 
 export const aliveAndNotRoles = (
-  players: Player[],
+  state: GameState,
   roles: AllRoleIDs[],
 ): Player[] => {
-  return players.filter((player) => {
+  return state.players.filter((player) => {
     return (
       !roles.includes(player.role.id) &&
-      (player.causeOfDeath === null || player.diedTonight)
+      (player.causeOfDeath === null || player.nightDied === state.nightCount)
     );
   });
 };
 
-export const aliveAndCharmed = (players: Player[]): Player[] => {
-  return players.filter((player) => {
+export const aliveAndCharmed = (state: GameState): Player[] => {
+  return state.players.filter((player) => {
     return (
-      player.charmed && (player.causeOfDeath === null || player.diedTonight)
+      player.charmed &&
+      (player.causeOfDeath === null || player.nightDied === state.nightCount)
     );
   });
 };
 
-export const tonightsWerewolfVictim = (players: Player[]): Player[] => {
-  return players.filter((player) => {
+export const tonightsWerewolfVictim = (state: GameState): Player[] => {
+  return state.players.filter((player) => {
     return (
-      (player.causeOfDeath === RoleIDs.Werewolf && player.diedTonight) ||
+      (player.causeOfDeath === RoleIDs.Werewolf &&
+        player.nightDied === state.nightCount) ||
       (player.savedBy === RoleIDs.Defender && player.defended)
     );
   });
@@ -53,33 +55,40 @@ export const dead = (players: Player[]) => {
   return players.filter((player) => player.causeOfDeath !== null);
 };
 
-export const diedTonight = (players: Player[]) => {
-  return players.filter((player) => player.diedTonight);
+export const diedTonight = (state: GameState) => {
+  return state.players.filter(
+    (player) => player.nightDied === state.nightCount,
+  );
 };
 
 export const savedTonight = (players: Player[]) => {
   return players.filter((player) => player.savedBy);
 };
 
-export const hunterDiedTonight = (players: Player[]): boolean => {
-  return players.some((player) => {
-    return player.role.id === RoleIDs.Hunter && player.diedTonight;
+export const hunterDiedTonight = (state: GameState): boolean => {
+  return state.players.some((player) => {
+    return (
+      player.role.id === RoleIDs.Hunter && player.nightDied === state.nightCount
+    );
   });
 };
 
 export const diedTonightAtTheHandsOf = (
-  players: Player[],
+  state: GameState,
   roles: (AllRoleIDs | null)[],
 ) => {
   const diedAtTheHandsOf = (player: Player) => {
-    return player.diedTonight && roles.includes(player.causeOfDeath);
+    return (
+      player.nightDied === state.nightCount &&
+      roles.includes(player.causeOfDeath)
+    );
   };
 
-  const loversDeath = players.some(
+  const loversDeath = state.players.some(
     (player) => diedAtTheHandsOf(player) && player.isInLove,
   );
 
-  return players.filter((player) => {
+  return state.players.filter((player) => {
     return (
       diedAtTheHandsOf(player) ||
       (loversDeath && player.causeOfDeath === RoleIDs.Cupid)
@@ -97,32 +106,32 @@ export const undefendablePlayers = (players: Player[]): PlayerID[] => {
   return players.filter((p) => p.defended).map((p) => p.id);
 };
 
-export const charmedPlayers = (players: Player[]): PlayerID[] => {
-  return aliveAndCharmed(players).map((p) => p.id);
+export const charmedPlayers = (state: GameState): PlayerID[] => {
+  return aliveAndCharmed(state).map((p) => p.id);
 };
 
 export const playersExist = (
-  players: Player[],
+  state: GameState,
   roles: AllRoleIDs[],
 ): boolean => {
-  return players.some((player) => {
+  return state.players.some((player) => {
     return (
       roles.includes(player.role.id) &&
-      (player.causeOfDeath === null || player.diedTonight)
+      (player.causeOfDeath === null || player.nightDied === state.nightCount)
     );
   });
 };
 
 export const playersDied = (
-  players: Player[],
+  state: GameState,
   roles: AllRoleIDs[],
   diedTonight: boolean,
 ): boolean => {
-  return players.some((player) => {
+  return state.players.some((player) => {
     return (
       roles.includes(player.role.id) &&
       player.causeOfDeath !== null &&
-      (diedTonight || !player.diedTonight)
+      (diedTonight || player.nightDied !== state.nightCount)
     );
   });
 };

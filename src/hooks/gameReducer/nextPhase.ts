@@ -82,7 +82,11 @@ const resetHunter = (state: GameState): GameState => {
     ...state,
     players: state.players.map((player) => {
       if (player.role.id === RoleIDs.Hunter) {
-        return { ...player, diedTonight: false, savedBy: null };
+        return {
+          ...player,
+          nightDied: (player.nightDied ?? 1) - 1,
+          savedBy: null,
+        };
       }
       return player;
     }),
@@ -90,14 +94,13 @@ const resetHunter = (state: GameState): GameState => {
 };
 
 const resetNight = (state: GameState): GameState => {
-  const defenderDead = playersDied(state.players, [RoleIDs.Defender], true);
+  const defenderDead = playersDied(state, [RoleIDs.Defender], true);
   return {
     ...state,
     nightCount: state.nightCount + 1,
     players: state.players.map((player) => ({
       ...player,
       defended: defenderDead ? false : player.defended,
-      diedTonight: false,
       savedBy: null,
     })),
   };
@@ -126,10 +129,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
 
   switch (phaseInfo.id) {
     case Phases.Angel:
-      if (
-        state.dayCount === -1 &&
-        playersExist(state.players, [RoleIDs.Angel])
-      ) {
+      if (state.dayCount === -1 && playersExist(state, [RoleIDs.Angel])) {
         const townVoteIndex = PHASE_ORDER.findIndex(
           (phase) => phase.id === Phases.TownVote,
         );
@@ -141,38 +141,38 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       return setPhase(resetNight(state), phaseIndex);
 
     case Phases.Cupid:
-      if (!playersExist(state.players, [RoleIDs.Cupid])) {
+      if (!playersExist(state, [RoleIDs.Cupid])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.Fox:
-      if (!playersExist(state.players, [RoleIDs.Fox])) {
+      if (!playersExist(state, [RoleIDs.Fox])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.FortuneTeller:
-      if (!playersExist(state.players, [RoleIDs.FortuneTeller])) {
+      if (!playersExist(state, [RoleIDs.FortuneTeller])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.Defender:
-      if (!playersExist(state.players, [RoleIDs.Defender])) {
+      if (!playersExist(state, [RoleIDs.Defender])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.Werewolves:
-      if (!playersExist(state.players, WEREWOLVES)) {
+      if (!playersExist(state, WEREWOLVES)) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.WhiteWerewolf:
       if (
-        playersExist(state.players, [RoleIDs.WhiteWerewolf]) &&
+        playersExist(state, [RoleIDs.WhiteWerewolf]) &&
         state.nightCount % 2 === 1
       ) {
         return setPhase(state, phaseIndex);
@@ -181,36 +181,34 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
 
     case Phases.BigBadWolf:
       if (
-        !playersExist(state.players, [RoleIDs.BigBadWolf]) ||
-        playersDied(state.players, [RoleIDs.Werewolf], false)
+        !playersExist(state, [RoleIDs.BigBadWolf]) ||
+        playersDied(state, [RoleIDs.Werewolf], false)
       ) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.Witch:
-      if (!playersExist(state.players, [RoleIDs.Witch])) {
+      if (!playersExist(state, [RoleIDs.Witch])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.Piper:
-      if (!playersExist(state.players, [RoleIDs.Piper])) {
+      if (!playersExist(state, [RoleIDs.Piper])) {
         return goToNextPhase();
       }
       return setPhase(state, phaseIndex);
 
     case Phases.TwoSisters:
-      const aliveSisters = aliveAndIsRoles(state.players, [RoleIDs.TwoSisters]);
+      const aliveSisters = aliveAndIsRoles(state, [RoleIDs.TwoSisters]);
       if (aliveSisters.length > 1 && state.nightCount % 2 === 0) {
         return setPhase(state, phaseIndex);
       }
       return goToNextPhase();
 
     case Phases.ThreeBrothers:
-      const aliveBrothers = aliveAndIsRoles(state.players, [
-        RoleIDs.ThreeBrothers,
-      ]);
+      const aliveBrothers = aliveAndIsRoles(state, [RoleIDs.ThreeBrothers]);
       if (aliveBrothers.length > 1 && state.nightCount % 2 === 0) {
         return setPhase(state, phaseIndex);
       }
@@ -218,7 +216,7 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
 
     case Phases.Charmed:
       if (
-        playersExist(state.players, [RoleIDs.Piper]) &&
+        playersExist(state, [RoleIDs.Piper]) &&
         state.players.some((player) => player.charmed)
       ) {
         return setPhase(state, phaseIndex);
@@ -235,13 +233,13 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       const scapegoatVotes = state.players.some(
         (p) =>
           p.role.id === RoleIDs.Scapegoat &&
-          p.diedTonight &&
+          p.nightDied === state.nightCount &&
           p.causeOfDeath === RoleIDs.Scapegoat,
       );
       return setPhase({ ...state, scapegoatVotes }, phaseIndex);
 
     case Phases.Hunter:
-      if (!hunterDiedTonight(state.players)) return goToNextPhase(2);
+      if (!hunterDiedTonight(state)) return goToNextPhase(2);
       return setPhase(state, phaseIndex);
 
     case Phases.HunterSummary:

@@ -9,7 +9,7 @@ export type SavePlayersAction = {
 };
 
 export const savePlayer = (player: Player, savedBy: Player['savedBy']) => {
-  return { ...player, savedBy, causeOfDeath: null, diedTonight: false };
+  return { ...player, savedBy, causeOfDeath: null, nightDied: null };
 };
 
 export const savePlayers: Reducer<SavePlayersAction> = (state, action) => {
