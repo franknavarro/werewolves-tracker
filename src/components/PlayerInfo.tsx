@@ -30,7 +30,7 @@ const PlayerInfo: FC<PlayerInfoProps> = ({ player, onClose, open }) => {
             Cause of Death:
           </Typography>
           <Typography className={classes.endText}>
-            {getRoleText(player.causeOfDeath).displayName}
+            {getRoleText(player.causeOfDeath).causeOfDeath}
           </Typography>
         </>
       );

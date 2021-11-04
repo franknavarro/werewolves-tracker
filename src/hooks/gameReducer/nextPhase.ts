@@ -25,6 +25,7 @@ export enum Phases {
   Defender = 'Defender',
   TwoSisters = 'TwoSisters',
   ThreeBrothers = 'ThreeBrothers',
+  KnightWithRustySword = 'KnightWithRustySword',
   NightSummary = 'NightSummary',
   Hunter = 'Hunter',
   HunterSummary = 'HunterSummary',
@@ -59,6 +60,7 @@ export const PHASE_ORDER: PhaseInfo[] = [
   { id: Phases.Witch, firstNightOnly: false, nightTime: true },
   { id: Phases.Piper, firstNightOnly: false, nightTime: true },
   { id: Phases.Charmed, firstNightOnly: false, nightTime: true },
+  { id: Phases.KnightWithRustySword, firstNightOnly: false, nightTime: true },
   { id: Phases.NightSummary, firstNightOnly: false, nightTime: true },
   { id: Phases.Hunter, firstNightOnly: false, nightTime: true },
   { id: Phases.HunterSummary, firstNightOnly: false, nightTime: true },
@@ -218,6 +220,20 @@ export const nextPhase: Reducer<NextPhaseAction> = (state, action) => {
       if (
         playersExist(state, [RoleIDs.Piper]) &&
         state.players.some((player) => player.charmed)
+      ) {
+        return setPhase(state, phaseIndex);
+      }
+      return goToNextPhase();
+
+    case Phases.KnightWithRustySword:
+      const knight = state.players.find(
+        (player) => player.role.id === RoleIDs.KnightRustySword,
+      );
+      if (
+        knight &&
+        knight.causeOfDeath &&
+        knight.nightDied === state.nightCount - 1 &&
+        WEREWOLVES.includes(knight.causeOfDeath)
       ) {
         return setPhase(state, phaseIndex);
       }

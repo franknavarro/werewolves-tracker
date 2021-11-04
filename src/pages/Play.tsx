@@ -25,6 +25,7 @@ import Defender from './phases/Defender';
 import BigBadWolf from './phases/BigBadWolf';
 import Piper from './phases/Piper';
 import CharmedPlayers from './phases/CharmedPlayers';
+import KnightWithRustySword from './phases/KnightWithRustySword';
 import WakeSleep from './phases/WakeSleep';
 
 const Play: FC = () => {
@@ -75,6 +76,8 @@ const Play: FC = () => {
       return <WakeSleep roles={[RoleIDs.ThreeBrothers]} />;
     case Phases.TwoSisters:
       return <WakeSleep roles={[RoleIDs.TwoSisters]} />;
+    case Phases.KnightWithRustySword:
+      return <KnightWithRustySword />;
     case Phases.NightSummary:
       return (
         <Summary

@@ -18,6 +18,7 @@ interface WakeSleepProps {
   roles: RoleIDs[];
   wakePlayers?: Player[];
   wakeText?: string;
+  noWake?: boolean;
 }
 
 const WakeSleep: FC<WakeSleepProps> = ({
@@ -25,6 +26,7 @@ const WakeSleep: FC<WakeSleepProps> = ({
   roles,
   wakePlayers,
   wakeText,
+  noWake,
 }) => {
   const { nextPhase, ...gameState } = useGame();
   const [actionIndex, setAction] = useState(0);
@@ -62,12 +64,12 @@ const WakeSleep: FC<WakeSleepProps> = ({
 
   return (
     <PageColor color={roles[0]}>
-      {wakeTextPrimary && (
+      {!noWake && wakeTextPrimary && (
         <Typography component="h1" variant="h3">
           {wakeTextPrimary}
         </Typography>
       )}
-      <PlayerList players={wakePlayersPrimary} />
+      {!noWake && <PlayerList players={wakePlayersPrimary} />}
       {actionPrimaryText && (
         <Typography component="h1" variant="h3">
           {actionPrimaryText}

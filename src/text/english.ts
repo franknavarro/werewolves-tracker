@@ -16,6 +16,7 @@ export interface RoleText {
   description: string[];
   wakeUp?: string;
   actions?: ActionText[];
+  causeOfDeath?: string;
 }
 
 export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
@@ -38,6 +39,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.BigBadWolf]: {
     displayName: 'Big Bad Wolf',
     wakeUp: 'Wake Up the Big Bad Wolf',
+    causeOfDeath: 'Big Bad Wolf',
     actions: [
       {
         primaryText: 'Who would the Big Bad Wolf like to kill?',
@@ -55,6 +57,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.Werewolf]: {
     displayName: 'Simple Werewolf',
     wakeUp: 'Wake Up the Werewolves',
+    causeOfDeath: 'Werewolves',
     actions: [
       {
         primaryText: 'Who would the werewolves like to kill?',
@@ -71,6 +74,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   },
   [RoleIDs.Villager]: {
     displayName: 'Simple Villager',
+    causeOfDeath: 'Town Vote',
     description: [
       'Has no special skill.',
       'Their only weapons are the ability to analyze behavior to identify the Werewolves, and the strength of their conviction to prevent the execution of the innocents like themselves.',
@@ -91,6 +95,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   },
   [RoleIDs.Hunter]: {
     displayName: 'Hunter',
+    causeOfDeath: 'Hunter',
     actions: [
       {
         primaryText: 'Who would the Hunter like to kill?',
@@ -105,6 +110,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.Cupid]: {
     displayName: 'Cupid',
     wakeUp: 'Wake Up Cupid',
+    causeOfDeath: 'Broken Heart',
     actions: [
       {
         primaryText: 'Who would cupid like to marry?',
@@ -122,6 +128,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.Witch]: {
     displayName: 'Witch',
     wakeUp: 'Wake Up the Witch',
+    causeOfDeath: 'Witch',
     actions: [
       {
         primaryText:
@@ -164,6 +171,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   [RoleIDs.WhiteWerewolf]: {
     displayName: 'White Werewolf',
     wakeUp: 'Wake Up the White Werewolf',
+    causeOfDeath: 'White Werewolf',
     actions: [
       {
         primaryText: 'Who would the White Werewolf like to kill?',
@@ -189,6 +197,7 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   },
   [RoleIDs.Scapegoat]: {
     displayName: 'Scapegoat',
+    causeOfDeath: 'Tie Vote',
     description: [
       "It's sad to say, but in Miller's Hollow, when something doesn't go right, it's always him who unjustly suffers the consequences.",
       "If the village's vote ends in a tie, it's the Scapegoat who is eliminated instead of the tied characters. It is up to him to work carefully to avoid such a sad fate. If the Scapegoat is eliminated, he has one last task to complete - he'll chose who is permitted to vote or not on the next day.",
@@ -281,6 +290,16 @@ export const ROLE_TEXT: RoleIDsWithType<RoleText> = {
   },
   [RoleIDs.KnightRustySword]: {
     displayName: 'Knight with the Rusty Sword',
+    causeOfDeath: 'Rusty Sword',
+    actions: [
+      {
+        primaryText:
+          'Which alive Werewolf is to the left of the Knight with the Rusty Sword?',
+        secondaryText:
+          'There are no alive werewolves for the Knight\'s sword to poison. Click "Continue" to proceed.',
+        submitText: ['Continue', 'Kill Player'],
+      },
+    ],
     description: [
       "'Don Sneezy' is a very old retired knight.  He's rather tired by a life of questing throughout the world and doesn't maintain his noble tool very well any more. Rust has slowly started to settle on his protector's dull edge, but he'll never leave her for another. He still sleeps with her every evening these days: intruders beware!",
       "If the Knight is devoured, he's eliminated, but one of the Werewolves is contaminated by the rusted sword. Among the Werewolves guilty of that elimination, the first Werewolf to the left of the Knight with the Rusty Sword will be eliminated on the next night. This elimination due to disease will be revealed by the Moderator in the morning following the Werewolfs disappearance.",

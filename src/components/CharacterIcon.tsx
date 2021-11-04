@@ -1,13 +1,16 @@
 import {
+  GiBroadsword,
   GiBrokenHeart,
   GiDeathSkull,
   GiGoat,
   GiHealthPotion,
   GiMagicPotion,
+  GiWerewolf,
   GiWolfHowl,
   GiCrosshair,
 } from 'react-icons/gi';
 import { FaHandSpock, FaQuestion } from 'react-icons/fa';
+import { SiWolframlanguage } from 'react-icons/si';
 import { IoHandRightSharp } from 'react-icons/io5';
 import { FC } from 'react';
 import { RoleIDs } from '../hooks/roles';
@@ -26,9 +29,14 @@ const CharacterIcon: FC<CharacterIconProps> = ({ role, save }) => {
         return <GiBrokenHeart />;
       case RoleIDs.Hunter:
         return <GiCrosshair />;
+      case RoleIDs.KnightRustySword:
+        return <GiBroadsword />;
       case RoleIDs.Werewolf:
-      case RoleIDs.BigBadWolf:
         return <GiWolfHowl />;
+      case RoleIDs.BigBadWolf:
+        return <GiWerewolf />;
+      case RoleIDs.WhiteWerewolf:
+        return <SiWolframlanguage />;
       case RoleIDs.Witch:
         return save ? <GiHealthPotion /> : <GiMagicPotion />;
       case RoleIDs.Scapegoat:
