@@ -6,8 +6,6 @@ import { useGame } from '../../hooks/useGame';
 import { Alert } from '@material-ui/lab';
 import RoleGrid from '../../components/RoleGrid';
 
-const MIN_PLAYERS = 7;
-
 const PickRoles: FC = () => {
   const [selected, setSelected] = useState<number[]>([]);
   const { addRoles } = useGame();
@@ -42,9 +40,7 @@ const PickRoles: FC = () => {
           const role = { ...roleCards[index] };
 
           players.total += role.amount;
-          if (role.classification !== Classifications.Loner) {
-            players[role.classification] += role.amount;
-          }
+          players[role.classification] += role.amount;
 
           const roleIndex = players.roles.findIndex((r) => r.id === role.id);
           if (roleIndex === -1) {
@@ -57,25 +53,38 @@ const PickRoles: FC = () => {
         {
           [Classifications.Villager]: 0,
           [Classifications.Werewolf]: 0,
+          [Classifications.Loner]: 0,
           total: 0,
           roles: [] as Role[],
         },
       );
 
-      if (players.total < MIN_PLAYERS) {
-        setError(`At least ${MIN_PLAYERS} players are required to play.`);
+      if (
+        players[Classifications.Villager] > 0 &&
+        players[Classifications.Loner] === 0 &&
+        players[Classifications.Werewolf] === 0
+      ) {
+        setError('You need at least 1 werewolf or loner to play.');
         setDisabled(false);
         return;
       }
 
-      if (players[Classifications.Villager] <= 0) {
-        setError('You need at least 1 villager role to play.');
+      if (
+        players[Classifications.Loner] > 0 &&
+        players[Classifications.Villager] === 0 &&
+        players[Classifications.Werewolf] === 0
+      ) {
+        setError('You need at least 1 more werewolf or villager to play.');
         setDisabled(false);
         return;
       }
 
-      if (players[Classifications.Werewolf] <= 0) {
-        setError('You need at least 1 werewolf role to play.');
+      if (
+        players[Classifications.Werewolf] > 0 &&
+        players[Classifications.Loner] === 0 &&
+        players[Classifications.Villager] === 0
+      ) {
+        setError('You need at least 1 more villager or loner to play.');
         setDisabled(false);
         return;
       }
